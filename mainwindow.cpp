@@ -61,8 +61,7 @@ void MainWindow::buttonCalculate_BMI_clicked()
     if(!readheight.isEmpty() && !readweight.isEmpty()){
         bmi = readweight.toDouble()  / (readheight.toDouble() * readheight.toDouble());
         ui->bmiCalculation->setText(QString::number(bmi));
+        ui->lineEdit_Height->clear();
+        ui->lineEdit_Weight->clear();
     }
-    ui->lineEdit_Height->clear();
-    ui->lineEdit_Weight->clear();
 }
-
