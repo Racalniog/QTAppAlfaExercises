@@ -4,6 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 
+//TODO multiple views, multiple projects in same repo
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets>
+#include "windowtwo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,9 +31,14 @@ private slots:
     void buttonClickCount_clicked();
 
     void buttonCalculate_BMI_clicked();
+    void actionWindow_1_clicked();
+    void actionWindow_2_clicked();
 
 private:
+    QStackedWidget *m_stackedWidget;
     Ui::MainWindow *ui;
     int counter;
+    WindowTwo *secondWindow;
+    QWidget *centralZone;
 };
 #endif // MAINWINDOW_H
