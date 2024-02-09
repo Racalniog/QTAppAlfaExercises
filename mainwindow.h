@@ -21,15 +21,10 @@ public:
 
 private slots:
     void buttonCopy_clicked();
-
     void buttonDelete_clicked();
-
     void lineEdit_textChanged(const QString &arg1);
-
     void buttonExit_clicked();
-
     void buttonClickCount_clicked();
-
     void buttonCalculate_BMI_clicked();
     void actionWindow_1_clicked();
     void actionWindow_2_clicked();
