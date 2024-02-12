@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "windowtwo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,12 +27,13 @@ private slots:
     void buttonCalculate_BMI_clicked();
     void actionWindow_1_clicked();
     void actionWindow_2_clicked();
+    void actionWindow_3_clicked();
+    void actionWindow_4_clicked();
+    void convertNumberSystem();
 
 private:
-    QStackedWidget *m_stackedWidget;
     Ui::MainWindow *ui;
     int counter;
-    WindowTwo *secondWindow;
-    QWidget *centralZone;
+    int basis;
 };
 #endif // MAINWINDOW_H

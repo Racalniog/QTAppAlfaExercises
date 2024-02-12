@@ -32,6 +32,9 @@
       <height>571</height>
      </rect>
     </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
@@ -198,20 +201,118 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="lineEditOutput">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>280</x>
+        <y>240</y>
+        <width>113</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
         <y>160</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Input</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>140</y>
+        <width>120</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Numbersystems</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>115</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QRadioButton" name="radioButtonBinary">
+          <property name="text">
+           <string>binary</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonOctal">
+          <property name="text">
+           <string>octal</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonHexadecimal">
+          <property name="text">
+           <string>hexadecimal</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>220</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Output</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditInput">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>180</y>
+        <width>113</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QLineEdit" name="lineEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>240</y>
         <width>113</width>
         <height>28</height>
        </rect>
       </property>
       <property name="inputMask">
-       <string>iuhrkldnfgoi</string>
+       <string>awdawdawdfff</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_4"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -229,6 +330,8 @@
     </property>
     <addaction name="actionWindow_1"/>
     <addaction name="actionWindow_2"/>
+    <addaction name="actionWindow_3"/>
+    <addaction name="actionUiButton"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -241,6 +344,16 @@
   <action name="actionWindow_1">
    <property name="text">
     <string>Window 1</string>
+   </property>
+  </action>
+  <action name="actionWindow_3">
+   <property name="text">
+    <string>Window 3</string>
+   </property>
+  </action>
+  <action name="actionUiButton">
+   <property name="text">
+    <string>UiButton</string>
    </property>
   </action>
  </widget>

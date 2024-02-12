@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     int counter = {};
-
+    ui->radioButtonBinary->setChecked(true);
+    basis = {};
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->buttonCopy->setEnabled(false);
@@ -17,8 +18,27 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->buttonExit, &QPushButton::clicked, this, &MainWindow::buttonExit_clicked);
     connect(ui->buttonClickCount, &QPushButton::clicked, this, &MainWindow::buttonClickCount_clicked);
     connect(ui->buttonCalculate_BMI_clicked, &QPushButton::clicked, this, &MainWindow::buttonCalculate_BMI_clicked);
-    connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
     connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);
+    connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
+    connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::actionWindow_3_clicked);
+    connect(ui->actionUiButton, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
+    connect(ui->radioButtonBinary, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
+    connect(ui->radioButtonOctal, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
+    connect(ui->radioButtonHexadecimal, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
+    connect(ui->lineEditInput, &QLineEdit::textChanged, this, &MainWindow::convertNumberSystem);
+}
+
+void MainWindow::convertNumberSystem()
+{
+    long long zahl = ui->lineEditInput->text().toLongLong();
+    if(ui->radioButtonBinary->isChecked()){
+        basis = 2;
+    }else if(ui->radioButtonOctal->isChecked()){
+        basis = 8;
+    }else if(ui->radioButtonHexadecimal->isChecked()){
+        basis = 16;
+    }
+    ui->lineEditOutput->setText(QString::number(zahl, basis));
 }
 
 MainWindow::~MainWindow()
@@ -34,6 +54,16 @@ void MainWindow::actionWindow_1_clicked()
 void MainWindow::actionWindow_2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_2);
+}
+
+void MainWindow::actionWindow_3_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_3);
+}
+
+void MainWindow::actionWindow_4_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_4);
 }
 
 void MainWindow::buttonCopy_clicked()
