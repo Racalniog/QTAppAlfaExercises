@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 //TODO resize windows to fit content dynamically, rename variables
-// fix structure: call init for each window or own cpp and h
+// fix structure: cpp and h files
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -11,6 +11,54 @@ MainWindow::MainWindow(QWidget *parent)
     initBMI();
     initStyleConfigure();
     initNumberSystem();
+    initColorMixer();
+}
+
+void MainWindow::initColorMixer(){
+    connect(ui->redSlider, &QSlider::valueChanged, this, &MainWindow::onRedChanged);
+    connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onGreenChanged);
+    connect(ui->blueSlider, &QSlider::valueChanged, this, &MainWindow::onBlueChanged);
+
+    // QLabel needs the autoFillBackground setting marked to change color
+    onRedChanged(ui->redSlider->value());
+    onGreenChanged(ui->greenSlider->value());
+    onBlueChanged(ui->blueSlider->value());
+    ui->redSlider->setMinimum(0);
+    ui->redSlider->setMaximum(255);
+    ui->redSlider->setValue(127);
+    ui->greenSlider->setMinimum(0);
+    ui->greenSlider->setMaximum(255);
+    ui->greenSlider->setValue(127);
+    ui->blueSlider->setMinimum(0);
+    ui->blueSlider->setMaximum(255);
+    ui->blueSlider->setValue(127);
+}
+
+void MainWindow::onRedChanged(int value)
+{
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, QColor(value, palette.color(QPalette::Window).green(),
+                                              palette.color(QPalette::Window).blue()));
+    ui->colorPreview->setPalette(palette);
+    ui->redValue->setNum(value);
+}
+
+void MainWindow::onGreenChanged(int value)
+{
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, QColor(palette.color(QPalette::Window).red(),
+                                              value, palette.color(QPalette::Window).blue()));
+    ui->colorPreview->setPalette(palette);
+    ui->greenValue->setNum(value);
+}
+
+void MainWindow::onBlueChanged(int value)
+{
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, QColor(palette.color(QPalette::Window).red(),
+                                              palette.color(QPalette::Window).green(), value));
+    ui->colorPreview->setPalette(palette);
+    ui->blueValue->setNum(value);
 }
 
 void MainWindow::initQStackedWidget()

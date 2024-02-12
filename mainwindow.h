@@ -44,6 +44,11 @@ private slots:
     void setFontSize();
     void setFont(QWidget*, QFont&);
 
+    void initColorMixer();
+    void onRedChanged(int value);
+    void onGreenChanged(int value);
+    void onBlueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     QFont appFont;
