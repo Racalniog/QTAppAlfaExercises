@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1082</width>
-    <height>834</height>
+    <width>393</width>
+    <height>372</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,7 +45,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -344,7 +344,14 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEditInput"/>
+            <widget class="QLineEdit" name="lineEditInput">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_2">
@@ -355,6 +362,12 @@
            </item>
            <item row="3" column="1">
             <widget class="QLineEdit" name="lineEditOutput">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -549,6 +562,12 @@
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <widget class="QFrame" name="frame_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -558,6 +577,12 @@
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
             <widget class="QLabel" name="colorPreview">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="autoFillBackground">
               <bool>true</bool>
              </property>
@@ -568,6 +593,12 @@
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string>Green</string>
              </property>
@@ -575,6 +606,12 @@
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="greenValue">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -583,7 +620,7 @@
            <item row="2" column="0">
             <widget class="QSlider" name="greenSlider">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -595,6 +632,12 @@
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string>Blue</string>
              </property>
@@ -602,6 +645,12 @@
            </item>
            <item row="3" column="1">
             <widget class="QLabel" name="blueValue">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -610,7 +659,7 @@
            <item row="4" column="0">
             <widget class="QSlider" name="blueSlider">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -622,6 +671,12 @@
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string>Red</string>
              </property>
@@ -629,6 +684,12 @@
            </item>
            <item row="5" column="1">
             <widget class="QLabel" name="redValue">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -637,7 +698,7 @@
            <item row="6" column="0">
             <widget class="QSlider" name="redSlider">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -661,7 +722,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1082</width>
+     <width>393</width>
      <height>25</height>
     </rect>
    </property>
