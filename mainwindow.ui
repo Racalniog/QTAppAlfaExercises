@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
-    <height>609</height>
+    <width>1082</width>
+    <height>834</height>
    </rect>
   </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
+    <horstretch>1</horstretch>
+    <verstretch>1</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle">
@@ -23,559 +23,645 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="stackedWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>0</y>
-      <width>831</width>
-      <height>571</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>3</number>
-    </property>
-    <widget class="QWidget" name="page">
-     <widget class="QWidget" name="gridLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>40</y>
-        <width>649</width>
-        <height>271</height>
-       </rect>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>1</horstretch>
+     <verstretch>1</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>1</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="horizontalSpacing">
-        <number>7</number>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>1</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
        </property>
-       <item row="2" column="1">
-        <widget class="QLabel" name="labelCounter">
-         <property name="text">
-          <string>Click Counter</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="copyTarget">
-         <property name="text">
-          <string>Copy target</string>
-         </property>
-         <property name="indent">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="buttonCopy">
-         <property name="text">
-          <string>Copy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QPushButton" name="buttonExit">
-         <property name="text">
-          <string>Exit App</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="buttonClickCount">
-         <property name="text">
-          <string>Add One</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="buttonDelete">
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit">
-         <property name="font">
-          <font>
-           <family>Segoe UI</family>
-           <pointsize>11</pointsize>
-           <italic>true</italic>
-           <bold>true</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-          </font>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>Input is copied to target label below</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="3" column="1" colspan="2">
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="2" column="0">
-          <widget class="QLabel" name="bmiCalculation">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="indent">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="lineEdit_Weight">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>11</pointsize>
-             <italic>true</italic>
-             <bold>true</bold>
-             <underline>false</underline>
-             <strikeout>false</strikeout>
-            </font>
-           </property>
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>Input weight in kg</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLineEdit" name="lineEdit_Height">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>11</pointsize>
-             <italic>true</italic>
-             <bold>true</bold>
-             <underline>false</underline>
-             <strikeout>false</strikeout>
-            </font>
-           </property>
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>Input height in meter (1.80)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="buttonCalculate_BMI_clicked">
-           <property name="text">
-            <string>Calculate BMI</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_2">
-     <widget class="QLineEdit" name="lineEditOutput">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>240</y>
-        <width>113</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>160</y>
-        <width>49</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Input</string>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>140</y>
-        <width>120</width>
-        <height>141</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Numbersystems</string>
-      </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>115</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QRadioButton" name="radioButtonBinary">
-          <property name="text">
-           <string>binary</string>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="2" column="0" colspan="2">
+            <widget class="QLabel" name="labelCounter">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Click Counter</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="copyTarget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Copy target</string>
+             </property>
+             <property name="indent">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Segoe UI</family>
+               <pointsize>11</pointsize>
+               <italic>true</italic>
+               <bold>true</bold>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string>Input is copied to target label below</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="buttonClickCount">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Add One</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QLineEdit" name="lineEdit_Weight">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Segoe UI</family>
+               <pointsize>11</pointsize>
+               <italic>true</italic>
+               <bold>true</bold>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string>Input weight in kg</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QPushButton" name="buttonExit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Exit App</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="buttonCopy">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Copy</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="buttonDelete">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <spacer name="horizontalSpacer">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>228</width>
+               <height>67</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="bmiCalculation">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="indent">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QPushButton" name="buttonCalculate_BMI_clicked">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Calculate BMI</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QLineEdit" name="lineEdit_Height">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Segoe UI</family>
+               <pointsize>11</pointsize>
+               <italic>true</italic>
+               <bold>true</bold>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input is copied to copy target below&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string>Input height in meter (1.80)</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonOctal">
-          <property name="text">
-           <string>octal</string>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0" rowspan="4">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Numbersystems</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>20</y>
+                <width>115</width>
+                <height>111</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QRadioButton" name="radioButtonBinary">
+                 <property name="text">
+                  <string>binary</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonOctal">
+                 <property name="text">
+                  <string>octal</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonHexadecimal">
+                 <property name="text">
+                  <string>hexadecimal</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Input</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditInput"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Output</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEditOutput">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonHexadecimal">
-          <property name="text">
-           <string>hexadecimal</string>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBoxBackground">
+             <property name="title">
+              <string>Background</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_3">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>101</width>
+                <height>181</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QRadioButton" name="radioButtonBackgroundGreen">
+                 <property name="text">
+                  <string>Green</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonBackgroundBlue">
+                 <property name="text">
+                  <string>Blue</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonBackgroundRed">
+                 <property name="text">
+                  <string>Red</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonBackgroundYellow">
+                 <property name="text">
+                  <string>Yellow</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonBackgroundGrey">
+                 <property name="text">
+                  <string>Grey</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QGroupBox" name="groupBoxForeground">
+             <property name="title">
+              <string>Foreground</string>
+             </property>
+             <widget class="QWidget" name="verticalLayoutWidget_2">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>101</width>
+                <height>181</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QRadioButton" name="radioButtonForegroundBlue">
+                 <property name="text">
+                  <string>Blue</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonForegroundRed">
+                 <property name="text">
+                  <string>Red</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonForegroundYellow">
+                 <property name="text">
+                  <string>Yellow</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonForegroundBlack">
+                 <property name="text">
+                  <string>Black</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButtonForegroundWhite">
+                 <property name="text">
+                  <string>White</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QGroupBox" name="groupBoxFont">
+             <property name="title">
+              <string>Font</string>
+             </property>
+             <widget class="QCheckBox" name="checkBoxBold">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>40</y>
+                <width>76</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Bold</string>
+              </property>
+             </widget>
+             <widget class="QCheckBox" name="checkBoxItalic">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>70</y>
+                <width>76</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Italic</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="labelSize">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>110</y>
+                <width>71</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Font size</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEditSize">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>130</y>
+                <width>41</width>
+                <height>22</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_4">
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_4">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QLabel" name="colorPreview">
+             <property name="autoFillBackground">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Green</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="greenValue">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QSlider" name="greenSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Blue</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="blueValue">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QSlider" name="blueSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Red</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="redValue">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QSlider" name="redSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>220</y>
-        <width>49</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Output</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditInput">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>180</y>
-        <width>113</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_3">
-     <widget class="QGroupBox" name="groupBoxForeground">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>10</y>
-        <width>120</width>
-        <height>221</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Foreground</string>
-      </property>
-      <widget class="QWidget" name="verticalLayoutWidget_2">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>101</width>
-         <height>181</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QRadioButton" name="radioButtonForegroundBlue">
-          <property name="text">
-           <string>Blue</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonForegroundRed">
-          <property name="text">
-           <string>Red</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonForegroundYellow">
-          <property name="text">
-           <string>Yellow</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonForegroundBlack">
-          <property name="text">
-           <string>Black</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonForegroundWhite">
-          <property name="text">
-           <string>White</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBoxBackground">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>120</width>
-        <height>221</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Background</string>
-      </property>
-      <widget class="QWidget" name="verticalLayoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>101</width>
-         <height>181</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QRadioButton" name="radioButtonBackgroundGreen">
-          <property name="text">
-           <string>Green</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonBackgroundBlue">
-          <property name="text">
-           <string>Blue</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonBackgroundRed">
-          <property name="text">
-           <string>Red</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonBackgroundYellow">
-          <property name="text">
-           <string>Yellow</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButtonBackgroundGrey">
-          <property name="text">
-           <string>Grey</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBoxFont">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>10</y>
-        <width>120</width>
-        <height>221</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Font</string>
-      </property>
-      <widget class="QCheckBox" name="checkBoxBold">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>76</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Bold</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBoxItalic">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>76</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Italic</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelSize">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>71</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Font size</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lineEditSize">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>130</y>
-         <width>41</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="page_4">
-     <widget class="QWidget" name="gridLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>401</width>
-        <height>291</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="8" column="0">
-        <widget class="QSlider" name="redSlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLabel" name="redValue">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="greenValue">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="blueValue">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QSlider" name="greenSlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QSlider" name="blueSlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="colorPreview">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Green</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Blue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Red</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>848</width>
+     <width>1082</width>
      <height>25</height>
     </rect>
    </property>
@@ -586,7 +672,7 @@
     <addaction name="actionWindow_1"/>
     <addaction name="actionWindow_2"/>
     <addaction name="actionWindow_3"/>
-    <addaction name="actionUiButton"/>
+    <addaction name="actionWindow_4"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -606,7 +692,7 @@
     <string>Style configuration</string>
    </property>
   </action>
-  <action name="actionUiButton">
+  <action name="actionWindow_4">
    <property name="text">
     <string>Color mixer</string>
    </property>

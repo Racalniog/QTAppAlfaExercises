@@ -67,7 +67,7 @@ void MainWindow::initQStackedWidget()
     connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);
     connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
     connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::actionWindow_3_clicked);
-    connect(ui->actionUiButton, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
+    connect(ui->actionWindow_4, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
 }
 
 void MainWindow::initBMI()
