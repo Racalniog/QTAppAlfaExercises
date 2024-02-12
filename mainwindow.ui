@@ -26,14 +26,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>831</width>
       <height>571</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="gridLayoutWidget">
@@ -298,18 +298,187 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_3">
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QGroupBox" name="groupBoxForeground">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>240</y>
-        <width>113</width>
-        <height>28</height>
+        <x>140</x>
+        <y>10</y>
+        <width>120</width>
+        <height>221</height>
        </rect>
       </property>
-      <property name="inputMask">
-       <string>awdawdawdfff</string>
+      <property name="title">
+       <string>Foreground</string>
       </property>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>101</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="radioButtonForegroundBlue">
+          <property name="text">
+           <string>Blue</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonForegroundRed">
+          <property name="text">
+           <string>Red</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonForegroundYellow">
+          <property name="text">
+           <string>Yellow</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonForegroundBlack">
+          <property name="text">
+           <string>Black</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonForegroundWhite">
+          <property name="text">
+           <string>White</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBoxBackground">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>120</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Background</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>101</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QRadioButton" name="radioButtonBackgroundGreen">
+          <property name="text">
+           <string>Green</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonBackgroundBlue">
+          <property name="text">
+           <string>Blue</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonBackgroundRed">
+          <property name="text">
+           <string>Red</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonBackgroundYellow">
+          <property name="text">
+           <string>Yellow</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButtonBackgroundGrey">
+          <property name="text">
+           <string>Grey</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBoxFont">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>10</y>
+        <width>120</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Font</string>
+      </property>
+      <widget class="QCheckBox" name="checkBoxBold">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>76</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Bold</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBoxItalic">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>76</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Italic</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelSize">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Font size</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEditSize">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>41</width>
+         <height>22</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="page_4"/>
@@ -338,22 +507,22 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionWindow_2">
    <property name="text">
-    <string>Window 2</string>
+    <string>Number sytem converter</string>
    </property>
   </action>
   <action name="actionWindow_1">
    <property name="text">
-    <string>Window 1</string>
+    <string>BMI Calculation</string>
    </property>
   </action>
   <action name="actionWindow_3">
    <property name="text">
-    <string>Window 3</string>
+    <string>Style configuration</string>
    </property>
   </action>
   <action name="actionUiButton">
    <property name="text">
-    <string>UiButton</string>
+    <string>Window 4</string>
    </property>
   </action>
  </widget>

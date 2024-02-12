@@ -1,16 +1,30 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-//TODO resize windows to fit content dynamically
+//TODO resize windows to fit content dynamically, rename variables
+// fix structure: call init for each window or own cpp and h
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int counter = {};
-    ui->radioButtonBinary->setChecked(true);
-    basis = {};
-    ui->stackedWidget->setCurrentIndex(0);
+    initQStackedWidget();
+    initBMI();
+    initStyleConfigure();
+    initNumberSystem();
+}
 
+void MainWindow::initQStackedWidget()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);
+    connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
+    connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::actionWindow_3_clicked);
+    connect(ui->actionUiButton, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
+}
+
+void MainWindow::initBMI()
+{
+    int counter = {};
     ui->buttonCopy->setEnabled(false);
     connect(ui->buttonCopy, &QPushButton::clicked, this, &MainWindow::buttonCopy_clicked);
     connect(ui->buttonDelete, &QPushButton::clicked, this, &MainWindow::buttonDelete_clicked);
@@ -18,14 +32,171 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->buttonExit, &QPushButton::clicked, this, &MainWindow::buttonExit_clicked);
     connect(ui->buttonClickCount, &QPushButton::clicked, this, &MainWindow::buttonClickCount_clicked);
     connect(ui->buttonCalculate_BMI_clicked, &QPushButton::clicked, this, &MainWindow::buttonCalculate_BMI_clicked);
-    connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);
-    connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
-    connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::actionWindow_3_clicked);
-    connect(ui->actionUiButton, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
+}
+
+void MainWindow::initNumberSystem()
+{
+    ui->radioButtonBinary->setChecked(true);
+    basis = {};
     connect(ui->radioButtonBinary, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
     connect(ui->radioButtonOctal, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
     connect(ui->radioButtonHexadecimal, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
     connect(ui->lineEditInput, &QLineEdit::textChanged, this, &MainWindow::convertNumberSystem);
+}
+
+void MainWindow::initStyleConfigure()
+{
+    appFont = this->font();
+    ui->radioButtonBackgroundGrey->setChecked(true);
+    ui->radioButtonForegroundBlack->setChecked(true);
+    ui->lineEditSize->setText(QString::number(this->font().pointSize()));
+    ui->lineEditSize->setMaxLength(2);
+
+    for(QRadioButton* rb : ui->groupBoxBackground->findChildren<QRadioButton*>())
+        connect (rb, &QRadioButton::toggled, this, &MainWindow::setBackColor);
+
+    for(QRadioButton* rb : ui->groupBoxForeground->findChildren<QRadioButton*>())
+        connect (rb, &QRadioButton::toggled, this, &MainWindow::setForeColor);
+
+    connect(ui->lineEditSize, &QLineEdit::editingFinished, this, &MainWindow::setFontSize);
+    connect(ui->lineEditSize, &QLineEdit::returnPressed, this, &MainWindow::focusNextChild);
+    connect(ui->checkBoxBold, &QCheckBox::toggled, this, &MainWindow::setFontStyle);
+    connect(ui->checkBoxItalic, &QCheckBox::toggled, this, &MainWindow::setFontStyle);
+}
+
+void MainWindow::setBackColor()
+{
+    for(QWidget* w : ui->groupBoxForeground->findChildren<QWidget*>())
+        w->setEnabled(true);
+    QPalette pal = this->palette();
+    if (ui->radioButtonBackgroundGreen->isChecked())
+        pal.setColor(QPalette::Window, Qt::green);
+    else if (ui->radioButtonBackgroundBlue->isChecked())
+    {
+        pal.setColor(QPalette::Window, Qt::blue);
+        ui->radioButtonForegroundBlue->setEnabled(false);
+        ui->radioButtonForegroundBlack->setEnabled(false);
+    }
+    else if (ui->radioButtonBackgroundRed->isChecked())
+    {
+        pal.setColor(QPalette::Window, Qt::red);
+        ui->radioButtonForegroundRed->setEnabled(false);
+    }
+    else if (ui->radioButtonBackgroundYellow->isChecked())
+    {
+        pal.setColor(QPalette::Window, Qt::yellow);
+        ui->radioButtonForegroundYellow->setEnabled(false);
+        ui->radioButtonForegroundWhite->setEnabled(false);
+    }
+    else if (ui->radioButtonBackgroundGrey->isChecked())
+    {
+        pal.setColor(QPalette::Window, Qt::lightGray);
+        ui->radioButtonForegroundYellow->setEnabled(false);
+        ui->radioButtonForegroundWhite->setEnabled(false);
+    }
+
+    this->setPalette(pal);
+}
+
+
+void MainWindow::setForeColor()
+{
+    for(QWidget* w : ui->groupBoxBackground->findChildren<QWidget*>())
+        w->setEnabled(true);
+
+    QPalette pal = this->palette();
+
+    if (ui->radioButtonForegroundBlue->isChecked())
+    {
+        pal.setColor(QPalette::WindowText, Qt::blue);
+        ui->radioButtonBackgroundBlue->setEnabled(false);
+    }
+    else if (ui->radioButtonForegroundRed->isChecked())
+    {
+        pal.setColor(QPalette::WindowText, Qt::red);
+        ui->radioButtonBackgroundRed->setEnabled(false);
+    }
+    else if (ui->radioButtonForegroundYellow->isChecked())
+    {
+        pal.setColor(QPalette::WindowText, Qt::yellow);
+        ui->radioButtonBackgroundYellow->setEnabled(false);
+    }
+    else if (ui->radioButtonForegroundBlack->isChecked())
+    {
+        pal.setColor(QPalette::WindowText, Qt::black);
+        ui->radioButtonBackgroundBlue->setEnabled(false);
+    }
+    else if (ui->radioButtonForegroundWhite->isChecked())
+    {
+        pal.setColor(QPalette::WindowText, Qt::white);
+        ui->radioButtonBackgroundYellow->setEnabled(false);
+        ui->radioButtonBackgroundGrey->setEnabled(false);
+    }
+
+    this->setPalette(pal);
+
+    ui->groupBoxBackground->setPalette(pal);
+    ui->groupBoxForeground->setPalette(pal);
+    ui->groupBoxFont->setPalette(pal);
+}
+
+void MainWindow::setFontStyle()
+{
+    appFont.setWeight(QFont::Normal);
+    if (ui->checkBoxBold->isChecked())
+        appFont.setWeight(QFont::Bold);
+    appFont.setItalic(ui->checkBoxItalic->isChecked());
+    ui->groupBoxBackground->setFont(appFont);
+    ui->groupBoxForeground->setFont(appFont);
+    ui->groupBoxFont->setFont(appFont);
+}
+
+void MainWindow::setFontSize()
+{
+    int fontSize = this->appFont.pointSize();
+    int newFontSize;
+    bool bOK;
+
+    newFontSize = ui->lineEditSize->text().toInt(&bOK, 10);
+    if (!bOK)
+    {
+        QMessageBox::critical(this, "Error", "Invalid Input");
+        newFontSize = fontSize;
+        ui->lineEditSize->setText(QString::number(fontSize));
+    }
+    else if (newFontSize < MIN_FONTSIZE)
+    {
+        QMessageBox::critical(this, "Error", "Minimum Font Size is " +
+                                                  QString::number(MIN_FONTSIZE));
+        newFontSize = fontSize;
+        ui->lineEditSize->setText(QString::number(fontSize));
+
+    }
+    else if (newFontSize > MAX_FONTSIZE)
+    {
+        QMessageBox::warning(this, "Error", "Maximum Font Size is " +
+                                                 QString::number(MAX_FONTSIZE));
+        newFontSize = fontSize;
+        ui->lineEditSize->setText(QString::number(fontSize));
+
+    }
+
+    if (newFontSize == fontSize)
+        return;
+
+    appFont.setPointSize(newFontSize);
+
+    ui->groupBoxBackground->setFont(appFont);
+    ui->groupBoxForeground->setFont(appFont);
+    ui->groupBoxFont->setFont(appFont);
+}
+
+void MainWindow::setFont(QWidget *widget, QFont& font)
+{
+    widget->setFont(font);
+
+    for(QWidget* child : widget->findChildren<QWidget*>())
+        child->setFont(font);
 }
 
 void MainWindow::convertNumberSystem()
