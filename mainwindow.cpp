@@ -56,7 +56,7 @@ void MainWindow::initColorMixer(){
     connect(ui->greenSlider, &QSlider::valueChanged, this, &MainWindow::onGreenChanged);
     connect(ui->blueSlider, &QSlider::valueChanged, this, &MainWindow::onBlueChanged);
 
-    // QLabel needs the autoFillBackground setting marked to change color
+    ui->colorPreview->setAutoFillBackground(true);
     onRedChanged(ui->redSlider->value());
     onGreenChanged(ui->greenSlider->value());
     onBlueChanged(ui->blueSlider->value());
