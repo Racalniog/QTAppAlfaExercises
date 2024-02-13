@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>393</width>
-    <height>372</height>
+    <width>410</width>
+    <height>410</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,7 +45,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -206,9 +206,9 @@
            <item row="7" column="0">
             <spacer name="horizontalSpacer">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
-               <verstretch>1</verstretch>
+               <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="orientation">
@@ -713,6 +713,42 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_5">
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_5">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="1" column="0">
+            <widget class="QListWidget" name="listWidget"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QListWidget" name="listWidget_2"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>List 1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>List 2</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -722,7 +758,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>393</width>
+     <width>410</width>
      <height>25</height>
     </rect>
    </property>
@@ -734,6 +770,7 @@
     <addaction name="actionWindow_2"/>
     <addaction name="actionWindow_3"/>
     <addaction name="actionWindow_4"/>
+    <addaction name="actionWindow_5"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -756,6 +793,11 @@
   <action name="actionWindow_4">
    <property name="text">
     <string>Color mixer</string>
+   </property>
+  </action>
+  <action name="actionWindow_5">
+   <property name="text">
+    <string>List view</string>
    </property>
   </action>
  </widget>

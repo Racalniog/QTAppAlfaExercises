@@ -12,6 +12,20 @@ MainWindow::MainWindow(QWidget *parent)
     initStyleConfigure();
     initNumberSystem();
     initColorMixer();
+    initList();
+}
+
+void MainWindow::initList(){
+    for(int i = 0; i < 5; ++i) {
+        QListWidgetItem* item = new QListWidgetItem("Item " + QString::number(i + 1));
+        item->setCheckState(Qt::Unchecked);
+        ui->listWidget->addItem(item);
+    }
+
+    for(int i = 5; i < 10; ++i) {
+        QListWidgetItem* item = new QListWidgetItem("Item " + QString::number(i + 1));
+        ui->listWidget_2->addItem(item);
+    }
 }
 
 void MainWindow::initColorMixer(){
@@ -68,6 +82,7 @@ void MainWindow::initQStackedWidget()
     connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);
     connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::actionWindow_3_clicked);
     connect(ui->actionWindow_4, &QAction::triggered, this, &MainWindow::actionWindow_4_clicked);
+    connect(ui->actionWindow_5, &QAction::triggered, this, &MainWindow::actionWindow_5_clicked);
 }
 
 void MainWindow::initBMI()
@@ -283,6 +298,11 @@ void MainWindow::actionWindow_3_clicked()
 void MainWindow::actionWindow_4_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_4);
+}
+
+void MainWindow::actionWindow_5_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_5);
 }
 
 void MainWindow::buttonCopy_clicked()

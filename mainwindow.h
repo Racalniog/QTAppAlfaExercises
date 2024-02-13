@@ -25,6 +25,7 @@ private slots:
     void actionWindow_2_clicked();
     void actionWindow_3_clicked();
     void actionWindow_4_clicked();
+    void actionWindow_5_clicked();
 
     void initBMI();
     void buttonCopy_clicked();
@@ -48,6 +49,8 @@ private slots:
     void onRedChanged(int value);
     void onGreenChanged(int value);
     void onBlueChanged(int value);
+
+    void initList();
 
 private:
     Ui::MainWindow *ui;
