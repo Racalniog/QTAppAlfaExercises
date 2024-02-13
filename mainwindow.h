@@ -51,6 +51,8 @@ private slots:
     void onBlueChanged(int value);
 
     void initList();
+    void deleteMarkedItem();
+    void addItem();
 
 private:
     Ui::MainWindow *ui;

@@ -26,6 +26,29 @@ void MainWindow::initList(){
         QListWidgetItem* item = new QListWidgetItem("Item " + QString::number(i + 1));
         ui->listWidget_2->addItem(item);
     }
+    connect(ui->pushButtonDeleteMarked, &QPushButton::clicked, this, &MainWindow::deleteMarkedItem);
+    connect(ui->pushButtonAddItem, &QPushButton::clicked, this, &MainWindow::addItem);
+}
+
+void MainWindow::deleteMarkedItem(){
+        for (QListWidgetItem* item : ui->listWidget->selectedItems())
+        {
+            if (item->checkState() == Qt::Checked) {
+                ui->listWidget->removeItemWidget(item);
+                delete item;
+            }
+        }
+        for (QListWidgetItem* item : ui->listWidget_2->selectedItems())
+        {
+            if (item->checkState() == Qt::Checked) {
+                ui->listWidget_2->removeItemWidget(item);
+                delete item;
+            }
+        }
+}
+
+void MainWindow::addItem(){
+        ui->listWidget_2->addItem("New Item");
 }
 
 void MainWindow::initColorMixer(){
