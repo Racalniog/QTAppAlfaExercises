@@ -16,6 +16,7 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     mainwindow.cpp mainwindow.h mainwindow.ui
     bmi.cpp
     styleconfigure.h styleconfigure.cpp styleconfigure.ui
+    comboboxfont.h comboboxfont.cpp comboboxfont.ui
 )
 
 target_link_libraries(QTAlfaExercises PRIVATE

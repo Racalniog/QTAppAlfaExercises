@@ -30,6 +30,7 @@ private slots:
     void actionWindow_3_clicked();
     void actionWindow_4_clicked();
     void actionWindow_5_clicked();
+    void actionWindow_6_clicked();
 
     //initBMI
     void buttonCopy_clicked();

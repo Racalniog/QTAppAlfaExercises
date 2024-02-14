@@ -45,7 +45,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -596,6 +596,7 @@
         </item>
        </layout>
       </widget>
+      <widget class="ComboBoxFont" name="page_6"/>
      </widget>
     </item>
    </layout>
@@ -618,13 +619,14 @@
     <addaction name="actionWindow_3"/>
     <addaction name="actionWindow_4"/>
     <addaction name="actionWindow_5"/>
+    <addaction name="actionWindow_6"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionWindow_2">
    <property name="text">
-    <string>Number sytem converter</string>
+    <string>Number Sytem Converter</string>
    </property>
   </action>
   <action name="actionWindow_1">
@@ -634,17 +636,22 @@
   </action>
   <action name="actionWindow_3">
    <property name="text">
-    <string>Style configuration</string>
+    <string>Style Configuration</string>
    </property>
   </action>
   <action name="actionWindow_4">
    <property name="text">
-    <string>Color mixer</string>
+    <string>Color Mixer</string>
    </property>
   </action>
   <action name="actionWindow_5">
    <property name="text">
-    <string>List view</string>
+    <string>List View</string>
+   </property>
+  </action>
+  <action name="actionWindow_6">
+   <property name="text">
+    <string>Combo Box Style Configurator</string>
    </property>
   </action>
  </widget>
@@ -653,6 +660,12 @@
    <class>StyleConfigure</class>
    <extends>QWidget</extends>
    <header>styleconfigure.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ComboBoxFont</class>
+   <extends>QWidget</extends>
+   <header>comboboxfont.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
