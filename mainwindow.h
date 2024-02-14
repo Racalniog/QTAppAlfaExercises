@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,16 +17,21 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void initQStackedWidget();
+    void initBMI();
+    void initNumberSystem();
+    void initColorMixer();
+    void initList();
 
 private slots:
-    void initQStackedWidget();
+    //initQStackedWidget
     void actionWindow_1_clicked();
     void actionWindow_2_clicked();
     void actionWindow_3_clicked();
     void actionWindow_4_clicked();
     void actionWindow_5_clicked();
 
-    void initBMI();
+    //initBMI
     void buttonCopy_clicked();
     void buttonDelete_clicked();
     void lineEdit_textChanged(const QString &arg1);
@@ -35,31 +39,21 @@ private slots:
     void buttonClickCount_clicked();
     void buttonCalculate_BMI_clicked();
 
-    void initNumberSystem();
+    //initNumberSystem
     void convertNumberSystem();
 
-    void initStyleConfigure();
-    void setBackColor();
-    void setForeColor();
-    void setFontStyle();
-    void setFontSize();
-    void setFont(QWidget*, QFont&);
-
-    void initColorMixer();
+    //initColorMixer
     void onRedChanged(int value);
     void onGreenChanged(int value);
     void onBlueChanged(int value);
 
-    void initList();
+    //initList
     void deleteMarkedItem();
     void addItem();
 
 private:
     Ui::MainWindow *ui;
-    QFont appFont;
-    int counter;
+    int counter = {};
     int basis;
-    const int MIN_FONTSIZE = 5;
-    const int MAX_FONTSIZE = 20;
 };
 #endif // MAINWINDOW_H
