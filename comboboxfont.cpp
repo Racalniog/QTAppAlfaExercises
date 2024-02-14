@@ -6,29 +6,24 @@ ComboBoxFont::ComboBoxFont(QWidget *parent)
     , ui(new Ui::ComboBoxFont)
 {
     ui->setupUi(this);
+    QStringList fontStyles = {"Normal", "Bold", "Italic"};
+    QStringList fontSizes = {"8", "10", "12", "14", "16"};
+    QStringList fontColors = {"Black", "Red", "Blue"};
 
-    ui->fontStyleComboBox->addItem("Normal");
-    ui->fontStyleComboBox->addItem("Bold");
-    ui->fontStyleComboBox->addItem("Italic");
-    connect(ui->fontStyleComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComboBoxFont::updateFont);
+    ui->fontStyleComboBox->addItems(fontStyles);
+    connect(ui->fontStyleComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ComboBoxFont::updateFont);
 
-    ui->fontSizeComboBox->addItem("8");
-    ui->fontSizeComboBox->addItem("10");
-    ui->fontSizeComboBox->addItem("12");
-    connect(ui->fontSizeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComboBoxFont::updateFont);
+    ui->fontSizeComboBox->addItems(fontSizes);
+    connect(ui->fontSizeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ComboBoxFont::updateFont);
 
-    connect(ui->fontTypeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComboBoxFont::updateFont);
+    ui->fontColorComboBox->addItems(fontColors);
+    connect(ui->fontColorComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ComboBoxFont::updateFontColor);
 
-    ui->fontColorComboBox->addItem("Black");
-    ui->fontColorComboBox->addItem("Red");
-    ui->fontColorComboBox->addItem("Blue");
-    connect(ui->fontColorComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComboBoxFont::updateFontColor);
-
-    // Label to display the selected font
-    //QLabel *displayLabel = new QLabel("Sample Text", this);
-    //ui->fontExampleQLabel->addWidget(displayLabel);
-
-    //setLayout(layout);
+    connect(ui->fontTypeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ComboBoxFont::updateFont);
 }
 
 void ComboBoxFont::updateFont() {
