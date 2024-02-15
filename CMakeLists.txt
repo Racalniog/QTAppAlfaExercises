@@ -6,8 +6,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets )
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Network Xml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml)
 
 qt_standard_project_setup()
 
@@ -17,12 +17,15 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     bmi.cpp
     styleconfigure.h styleconfigure.cpp styleconfigure.ui
     comboboxfont.h comboboxfont.cpp comboboxfont.ui
+    rssreader.h rssreader.cpp rssreader.ui
 )
 
 target_link_libraries(QTAlfaExercises PRIVATE
     Qt::Core
     Qt::Gui
     Qt::Widgets
+    Qt::Network
+    Qt::Xml
 )
 
 install(TARGETS QTAlfaExercises
