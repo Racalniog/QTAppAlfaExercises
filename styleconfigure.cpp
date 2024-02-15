@@ -6,6 +6,7 @@ StyleConfigure::StyleConfigure(QWidget *parent)
     , ui(new Ui::StyleConfigure)
 {
     ui->setupUi(this);
+    ui->frame_3->setAutoFillBackground(true);
     initStyleConfigure();
 }
 
@@ -33,6 +34,7 @@ void StyleConfigure::setBackColor()
 {
     for(QWidget* w : ui->groupBoxForeground->findChildren<QWidget*>())
         w->setEnabled(true);
+
     QPalette pal = this->palette();
     if (ui->radioButtonBackgroundGreen->isChecked())
         pal.setColor(QPalette::Window, Qt::green);
