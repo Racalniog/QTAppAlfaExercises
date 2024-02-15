@@ -10,6 +10,9 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomNodeList>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 namespace Ui {
 class RSSReader;
@@ -26,8 +29,10 @@ public:
 private slots:
     void addFeed();
     void showFeedContent(const QString &text);
+    void removeFeed();
 
 private:
+    void loadFeedsFromDatabase();
     Ui::RSSReader *ui;
 };
 
