@@ -13,46 +13,42 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QFrame" name="frame">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>371</width>
-     <height>281</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <widget class="QComboBox" name="fontSizeComboBox"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QFontComboBox" name="fontTypeComboBox"/>
-    </item>
-    <item row="4" column="0" colspan="3">
-     <widget class="QLabel" name="fontExampleQLabel">
-      <property name="text">
-       <string>The quick brown fox jumps over the lazy turtle.</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QComboBox" name="fontColorComboBox"/>
-    </item>
-    <item row="2" column="1">
-     <widget class="QComboBox" name="fontStyleComboBox"/>
-    </item>
-   </layout>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="0">
+       <widget class="QComboBox" name="fontSizeComboBox"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QFontComboBox" name="fontTypeComboBox"/>
+      </item>
+      <item row="4" column="0" colspan="3">
+       <widget class="QLabel" name="fontExampleQLabel">
+        <property name="text">
+         <string>The quick brown fox jumps over the lazy turtle.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="fontColorComboBox"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="fontStyleComboBox"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
