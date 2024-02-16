@@ -23,8 +23,8 @@ public slots:
     void drawCircle(const bool);
     void drawFilledCircle(const bool);
     void drawRectangle(const bool);
-    void drawFilledRectangle(bool);
-    void drawLine(bool);
+    void drawFilledRectangle(const bool);
+    void drawLine(const bool);
 
 private:
     Ui::PaintWidget *ui;

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include "paintwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +23,9 @@ public:
     void initNumberSystem();
     void initColorMixer();
     void initList();
+
+signals:
+    void emitDrawCircle(bool);
 
 private slots:
     //initQStackedWidget

@@ -78,7 +78,7 @@ void PaintWidget::drawRectangle(const bool)
     update();
 }
 
-void PaintWidget::drawFilledRectangle(bool)
+void PaintWidget::drawFilledRectangle(const bool)
 {
     circle = false;
     filledCircle = false;
@@ -88,7 +88,7 @@ void PaintWidget::drawFilledRectangle(bool)
     update();
 }
 
-void PaintWidget::drawLine(bool)
+void PaintWidget::drawLine(const bool)
 {
     circle = false;
     filledCircle = false;

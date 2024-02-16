@@ -6,12 +6,15 @@
 void MainWindow::initBMI()
 {
     ui->buttonCopy->setEnabled(false);
+
     connect(ui->buttonCopy, &QPushButton::clicked, this, &MainWindow::buttonCopy_clicked);
     connect(ui->buttonDelete, &QPushButton::clicked, this, &MainWindow::buttonDelete_clicked);
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::lineEdit_textChanged);
     connect(ui->buttonExit, &QPushButton::clicked, this, &MainWindow::buttonExit_clicked);
-    connect(ui->buttonClickCount, &QPushButton::clicked, this, &MainWindow::buttonClickCount_clicked);
     connect(ui->buttonCalculate_BMI_clicked, &QPushButton::clicked, this, &MainWindow::buttonCalculate_BMI_clicked);
+
+    connect(ui->buttonClickCount, &QPushButton::clicked, this, &MainWindow::buttonClickCount_clicked);
+    connect(this, &MainWindow::emitDrawCircle, ui->page_8, &PaintWidget::drawCircle);
 }
 
 void MainWindow::buttonCopy_clicked()
@@ -42,6 +45,10 @@ void MainWindow::buttonClickCount_clicked()
 {
     counter += 1;
     ui->labelCounter->setText(QString::number(counter));
+    if (counter == 5) {
+        // If the counter reaches 5, call the drawCircle() slot of PaintWidget
+        emit emitDrawCircle(true);
+    }
 }
 
 void MainWindow::buttonCalculate_BMI_clicked()
