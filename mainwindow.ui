@@ -45,7 +45,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -378,9 +378,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="StyleConfigure" name="page_3">
-       <layout class="QGridLayout" name="gridLayout_8"/>
-      </widget>
+      <widget class="StyleConfigure" name="page_3"/>
       <widget class="QWidget" name="page_4">
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">

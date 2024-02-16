@@ -31,11 +31,11 @@ private:
     QBrush brush;
     QPen pen;
 
-    bool boolCircle;
-    bool boolFilledCircle;
-    bool boolRectangle;
-    bool boolFilledRectangle;
-    bool boolLine;
+    bool circle;
+    bool filledCircle;
+    bool rectangle;
+    bool filledRectangle;
+    bool line;
 
     void paintEvent(QPaintEvent* event) override;
 };

@@ -18,11 +18,11 @@ PaintWidget::PaintWidget(QWidget *parent, Qt::WindowFlags f) :
 
     brush = QBrush(Qt::black);
     pen = QPen(Qt::black);
-    boolCircle = false;
-    boolFilledCircle = false;
-    boolRectangle = false;
-    boolFilledRectangle = false;
-    boolLine = false;
+    circle = false;
+    filledCircle = false;
+    rectangle = false;
+    filledRectangle = false;
+    line = false;
 }
 
 PaintWidget::~PaintWidget()
@@ -50,51 +50,51 @@ void PaintWidget::setBrushColor()
 
 void PaintWidget::drawCircle(const bool)
 {
-    boolCircle = true;
-    boolFilledCircle = false;
-    boolRectangle = false;
-    boolFilledRectangle = false;
-    boolLine = false;
+    circle = true;
+    filledCircle = false;
+    rectangle = false;
+    filledRectangle = false;
+    line = false;
     update();
 }
 
 void PaintWidget::drawFilledCircle(const bool)
 {
-    boolCircle = true;
-    boolFilledCircle = true;
-    boolRectangle = false;
-    boolFilledRectangle = false;
-    boolLine = false;
+    circle = true;
+    filledCircle = true;
+    rectangle = false;
+    filledRectangle = false;
+    line = false;
     update();
 }
 
 void PaintWidget::drawRectangle(const bool)
 {
-    boolCircle = false;
-    boolFilledCircle = false;
-    boolRectangle = true;
-    boolFilledRectangle = false;
-    boolLine = false;
+    circle = false;
+    filledCircle = false;
+    rectangle = true;
+    filledRectangle = false;
+    line = false;
     update();
 }
 
 void PaintWidget::drawFilledRectangle(bool)
 {
-    boolCircle = false;
-    boolFilledCircle = false;
-    boolRectangle = true;
-    boolFilledRectangle = true;
-    boolLine = false;
+    circle = false;
+    filledCircle = false;
+    rectangle = true;
+    filledRectangle = true;
+    line = false;
     update();
 }
 
 void PaintWidget::drawLine(bool)
 {
-    boolCircle = false;
-    boolFilledCircle = false;
-    boolRectangle = false;
-    boolFilledRectangle = false;
-    boolLine = true;
+    circle = false;
+    filledCircle = false;
+    rectangle = false;
+    filledRectangle = false;
+    line = true;
     update();
 }
 
@@ -105,21 +105,21 @@ void PaintWidget::paintEvent(QPaintEvent *event)
     painter.setBrush(brush);
     painter.setPen(pen);
 
-    if (boolCircle) {
-        if (boolFilledCircle)
+    if (circle) {
+        if (filledCircle)
             painter.drawEllipse(ui->paintArea->rect());
         else{
             painter.setBrush(Qt::NoBrush);
             painter.drawEllipse(ui->paintArea->rect().adjusted(10, 10, -10, -10));
         }
-    } else if (boolRectangle) {
-        if (boolFilledRectangle)
+    } else if (rectangle) {
+        if (filledRectangle)
             painter.drawRect(ui->paintArea->rect());
         else{
             painter.setBrush(Qt::NoBrush);
             painter.drawRect(ui->paintArea->rect().adjusted(10, 10, -10, -10));
         }
-    } else if (boolLine) {
+    } else if (line) {
         painter.drawLine(ui->paintArea->rect().topLeft(), ui->paintArea->rect().bottomRight());
     }
 }
