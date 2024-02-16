@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>402</width>
     <height>300</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
       <item row="4" column="0" colspan="3">
        <widget class="QLabel" name="fontExampleQLabel">
         <property name="text">
-         <string>The quick brown fox jumps over the lazy turtle.</string>
+         <string>The quick brown fox jumps over the lazy dog.</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

@@ -18,6 +18,8 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     styleconfigure.h styleconfigure.cpp styleconfigure.ui
     comboboxfont.h comboboxfont.cpp comboboxfont.ui
     rssreader.h rssreader.cpp rssreader.ui
+    sporttimer.h sporttimer.cpp sporttimer.ui
+    paintwidget.h paintwidget.cpp paintwidget.ui
 )
 
 target_link_libraries(QTAlfaExercises PRIVATE

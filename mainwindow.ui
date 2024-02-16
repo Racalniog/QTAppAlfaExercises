@@ -45,7 +45,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -598,6 +598,7 @@
       </widget>
       <widget class="ComboBoxFont" name="page_6"/>
       <widget class="RSSReader" name="page_7"/>
+      <widget class="PaintWidget" name="page_8"/>
      </widget>
     </item>
    </layout>
@@ -622,6 +623,7 @@
     <addaction name="actionWindow_5"/>
     <addaction name="actionWindow_6"/>
     <addaction name="actionWindow_7"/>
+    <addaction name="actionWindow_8"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -661,6 +663,11 @@
     <string>RSS Reader</string>
    </property>
   </action>
+  <action name="actionWindow_8">
+   <property name="text">
+    <string>Painter</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -679,6 +686,12 @@
    <class>RSSReader</class>
    <extends>QWidget</extends>
    <header>rssreader.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PaintWidget</class>
+   <extends>QWidget</extends>
+   <header>paintwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

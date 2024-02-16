@@ -107,6 +107,7 @@ void MainWindow::initQStackedWidget()
     connect(ui->actionWindow_5, &QAction::triggered, this, &MainWindow::actionWindow_5_clicked);
     connect(ui->actionWindow_6, &QAction::triggered, this, &MainWindow::actionWindow_6_clicked);
     connect(ui->actionWindow_7, &QAction::triggered, this, &MainWindow::actionWindow_7_clicked);
+    connect(ui->actionWindow_8, &QAction::triggered, this, &MainWindow::actionWindow_8_clicked);
 }
 
 
@@ -173,4 +174,9 @@ void MainWindow::actionWindow_6_clicked()
 void MainWindow::actionWindow_7_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_7);
+}
+
+void MainWindow::actionWindow_8_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_8);
 }

@@ -32,7 +32,6 @@ void RSSReader::removeFeed()
         int row = ui->feedListWidget->currentRow();
         delete ui->feedListWidget->takeItem(row);
 
-        // Remove from database
         QSqlQuery query;
         query.prepare("DELETE FROM feeds WHERE url = (:url)");
         query.bindValue(":url", feedUrl);
@@ -61,15 +60,12 @@ void RSSReader::addFeed()
 {
     QString feedUrl = ui->feedUrlLineEdit->text();
     if (!feedUrl.isEmpty()) {
-        // Check if the URL already exists
         QSqlQuery checkQuery;
         checkQuery.prepare("SELECT url FROM feeds WHERE url = (:url)");
         checkQuery.bindValue(":url", feedUrl);
         if (checkQuery.exec() && checkQuery.next()) {
             qDebug() << "Feed URL already exists in the database";
-            // Handle the duplicate URL case here
         } else {
-            // Insert the new URL into the database
             QSqlQuery query;
             query.prepare("INSERT INTO feeds (url) VALUES (:url)");
             query.bindValue(":url", feedUrl);
@@ -91,7 +87,6 @@ void RSSReader::showFeedContent(const QString &text)
         if (reply->error() == QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
 
-            // Parse XML data
             QDomDocument doc;
             if (doc.setContent(data)) {
                 QString content;
@@ -105,7 +100,10 @@ void RSSReader::showFeedContent(const QString &text)
                         QString description = itemElement.elementsByTagName("description").item(0).toElement().text();
                         content += "Title: " + title + "\n";
                         //content += "Link: " + link + "\n";
-                        content += "Description: " + description + "\n\n";
+                        if(description.isEmpty())
+                            content += "Description: No Description available.\n\n";
+                        else
+                            content += "Description: " + description + "\n\n";
                     }
                 }
                 ui->feedContentTextEdit->setText(content);
