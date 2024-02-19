@@ -48,7 +48,27 @@ void MainWindow::buttonClickCount_clicked()
     if (counter == 5) {
         // If the counter reaches 5, call the drawCircle() slot of PaintWidget
         emit emitDrawCircle(true);
+        showDialog();
     }
+}
+
+void MainWindow::showDialog(){
+    QScopedPointer<QDialog> dialog(new QDialog(this));
+
+    QLabel *label = new QLabel("Something happend!", dialog.data());
+    QPushButton *button = new QPushButton("Close", dialog.data());
+
+    QVBoxLayout *layout = new QVBoxLayout(dialog.data());
+    layout->addWidget(label);
+    layout->addWidget(button);
+
+    QObject::connect(button, &QPushButton::clicked, dialog.data(), &QDialog::close);
+
+    dialog->setLayout(layout);
+    dialog->setWindowTitle("Notification");
+    dialog->setMinimumSize(200, 100);
+
+    dialog->exec();
 }
 
 void MainWindow::buttonCalculate_BMI_clicked()

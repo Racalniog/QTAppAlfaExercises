@@ -62,5 +62,7 @@ private:
     Ui::MainWindow *ui;
     int counter = {};
     int basis;
+
+    void showDialog();
 };
 #endif // MAINWINDOW_H
