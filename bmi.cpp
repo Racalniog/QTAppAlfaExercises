@@ -14,7 +14,7 @@ void MainWindow::initBMI()
     connect(ui->buttonCalculate_BMI_clicked, &QPushButton::clicked, this, &MainWindow::buttonCalculate_BMI_clicked);
 
     connect(ui->buttonClickCount, &QPushButton::clicked, this, &MainWindow::buttonClickCount_clicked);
-    connect(this, &MainWindow::emitDrawCircle, ui->page_8, &PaintWidget::drawCircle);
+    connect(this, &MainWindow::emitDrawCircle, ui->page_8, &PaintWidget::drawEgg);
 }
 
 void MainWindow::buttonCopy_clicked()

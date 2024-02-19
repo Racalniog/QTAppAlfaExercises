@@ -23,6 +23,7 @@ PaintWidget::PaintWidget(QWidget *parent, Qt::WindowFlags f) :
     rectangle = false;
     filledRectangle = false;
     line = false;
+    egg = false;
 }
 
 PaintWidget::~PaintWidget()
@@ -98,6 +99,17 @@ void PaintWidget::drawLine(const bool)
     update();
 }
 
+void PaintWidget::drawEgg(const bool)
+{
+    circle = false;
+    filledCircle = false;
+    rectangle = false;
+    filledRectangle = false;
+    line = false;
+    egg = true;
+    update();
+}
+
 void PaintWidget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
@@ -121,5 +133,36 @@ void PaintWidget::paintEvent(QPaintEvent *event)
         }
     } else if (line) {
         painter.drawLine(ui->paintArea->rect().topLeft(), ui->paintArea->rect().bottomRight());
+    } else if (egg){
+        drawEasterEgg();
     }
+
+}
+
+void PaintWidget::drawEasterEgg()
+{
+    QPainter painter(this);
+    painter.setPen(Qt::NoPen);
+    // Draw the egg shape
+    painter.setBrush(Qt::yellow);
+    painter.drawEllipse(100, 100, 100, 150);
+
+    // Draw the decorations on the egg
+    painter.setBrush(Qt::red);
+    painter.drawEllipse(125, 110, 30, 30);
+
+    painter.setBrush(Qt::blue);
+    painter.drawEllipse(155, 120, 30, 30);
+
+    painter.setBrush(Qt::green);
+    painter.drawEllipse(130, 200, 30, 30);
+
+    painter.setBrush(Qt::magenta);
+    painter.drawEllipse(140, 150, 30, 30);
+
+    painter.setBrush(Qt::cyan);
+    painter.drawEllipse(165, 180, 30, 30);
+
+    painter.setBrush(Qt::darkYellow);
+    painter.drawEllipse(105, 150, 30, 30);
 }

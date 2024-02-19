@@ -25,17 +25,20 @@ public slots:
     void drawRectangle(const bool);
     void drawFilledRectangle(const bool);
     void drawLine(const bool);
+    void drawEgg(const bool);
 
 private:
     Ui::PaintWidget *ui;
     QBrush brush;
     QPen pen;
 
+    bool egg;
     bool circle;
     bool filledCircle;
     bool rectangle;
     bool filledRectangle;
     bool line;
+    void drawEasterEgg();
 
     void paintEvent(QPaintEvent* event) override;
 };
