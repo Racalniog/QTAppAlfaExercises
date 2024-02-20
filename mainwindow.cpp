@@ -108,9 +108,8 @@ void MainWindow::initQStackedWidget()
     connect(ui->actionWindow_6, &QAction::triggered, this, &MainWindow::actionWindow_6_clicked);
     connect(ui->actionWindow_7, &QAction::triggered, this, &MainWindow::actionWindow_7_clicked);
     connect(ui->actionWindow_8, &QAction::triggered, this, &MainWindow::actionWindow_8_clicked);
+    connect(ui->actionWindow_9, &QAction::triggered, this, &MainWindow::actionWindow_9_clicked);
 }
-
-
 
 void MainWindow::initNumberSystem()
 {
@@ -121,7 +120,6 @@ void MainWindow::initNumberSystem()
     connect(ui->radioButtonHexadecimal, &QRadioButton::clicked, this, &MainWindow::convertNumberSystem);
     connect(ui->lineEditInput, &QLineEdit::textChanged, this, &MainWindow::convertNumberSystem);
 }
-
 
 void MainWindow::convertNumberSystem()
 {
@@ -179,4 +177,9 @@ void MainWindow::actionWindow_7_clicked()
 void MainWindow::actionWindow_8_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->page_8);
+}
+
+void MainWindow::actionWindow_9_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->page_9);
 }

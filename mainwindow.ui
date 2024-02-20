@@ -48,7 +48,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -624,6 +624,7 @@
       <widget class="ComboBoxFont" name="page_6"/>
       <widget class="RSSReader" name="page_7"/>
       <widget class="PaintWidget" name="page_8"/>
+      <widget class="SportTimer" name="page_9"/>
      </widget>
     </item>
    </layout>
@@ -649,6 +650,7 @@
     <addaction name="actionWindow_6"/>
     <addaction name="actionWindow_7"/>
     <addaction name="actionWindow_8"/>
+    <addaction name="actionWindow_9"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -693,6 +695,11 @@
     <string>Painter</string>
    </property>
   </action>
+  <action name="actionWindow_9">
+   <property name="text">
+    <string>Sport Timer</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -717,6 +724,12 @@
    <class>PaintWidget</class>
    <extends>QWidget</extends>
    <header>paintwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SportTimer</class>
+   <extends>QWidget</extends>
+   <header>sporttimer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

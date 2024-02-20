@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>381</width>
-     <height>281</height>
+     <width>731</width>
+     <height>431</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -28,26 +28,66 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-  </widget>
-  <widget class="QTimeEdit" name="timeEdit">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>530</y>
-     <width>118</width>
-     <height>29</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLCDNumber" name="lcdNumber">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>510</y>
-     <width>64</width>
-     <height>23</height>
-    </rect>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Seconds</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSpinBox" name="minutesSpinBox"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="addTimerButton">
+      <property name="text">
+       <string>Add Timer</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QSpinBox" name="secondsSpinBox"/>
+    </item>
+    <item row="6" column="0" colspan="3">
+     <widget class="QListWidget" name="timerListWidget"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="savePresetButton">
+      <property name="text">
+       <string>Save Preset</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="startButton">
+      <property name="text">
+       <string>Start Training</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="loadPresetButton">
+      <property name="text">
+       <string>Load Preset</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QPushButton" name="pauseButton">
+      <property name="text">
+       <string>Pause</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Minutes</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
