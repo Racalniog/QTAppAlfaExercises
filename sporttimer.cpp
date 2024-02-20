@@ -38,25 +38,24 @@ void initializeDatabase()
     }
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("presets.db"); // Set the database name
+    db.setDatabaseName("presets.db");
 
     if (!db.open()) {
         qDebug() << "Error: Unable to open database:" << db.lastError().text();
         return;
     }
 
-    // Create table for presets if it doesn't exist
     QSqlQuery query;
     if (!query.exec("CREATE TABLE IF NOT EXISTS presets (id INTEGER PRIMARY KEY, duration INTEGER)")) {
         qDebug() << "Error creating table:" << query.lastError().text();
         return;
     }
 }
+
 void SportTimer::updateTimerListView()
 {
-    ui->timerListWidget->clear(); // Clear the list view first
+    ui->timerListWidget->clear();
 
-    // Add the loaded timers to the list view
     for (int i = 0; i < durations.size(); ++i) {
         int minutes = durations[i] / 60000;
         int seconds = (durations[i] % 60000) / 1000;
@@ -64,7 +63,7 @@ void SportTimer::updateTimerListView()
         ui->timerListWidget->addItem("Timer " + QString::number(i + 1) + ": " + timerText);
     }
 }
-// Function to load preset timers from the database
+
 void SportTimer::loadPresetTimersFromDatabase()
 {
     QSqlQuery query;
@@ -79,14 +78,14 @@ void SportTimer::loadPresetTimersFromDatabase()
         this->addTimer(duration);
     }updateTimerListView();
 }
-// Function to load preset timers from the database
+
 void SportTimer::loadPresetTimers()
 {
-    initializeDatabase(); // Initialize the database
+    initializeDatabase();
     loadPresetTimersFromDatabase();
 
 }
-// Function to save the current timers as a preset in the database
+
 void savePresetTimersToDatabase(const QList<int> &durations)
 {
     QSqlQuery query;
@@ -108,12 +107,9 @@ SportTimer::~SportTimer()
     delete ui;
 }
 
-
-
-// Function to save the current timers as a preset in the database
 void SportTimer::savePresetTimers()
 {
-    initializeDatabase(); // Initialize the database
+    initializeDatabase();
 
     QSqlQuery query;
     for (int duration : durations) {
@@ -129,28 +125,25 @@ void SportTimer::savePresetTimers()
     }
 }
 
-
 void SportTimer::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
         int delta = event->angleDelta().y();
-        int fontSizeIncrement = 1; // Set the font size increment
+        int fontSizeIncrement = 1;
         if (delta > 0) {
-            // Increase font size
             QFont font = QApplication::font();
             font.setPointSize(font.pointSize() + fontSizeIncrement);
             QApplication::setFont(font);
         } else if (delta < 0) {
-            // Decrease font size
             QFont font = QApplication::font();
             font.setPointSize(font.pointSize() - fontSizeIncrement);
             QApplication::setFont(font);
         }
     } else {
-        // Pass the event to the base class to handle regular scrolling
         QWidget::wheelEvent(event);
     }
 }
+
 void SportTimer::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timers[timerIndex]->timerId()) {
