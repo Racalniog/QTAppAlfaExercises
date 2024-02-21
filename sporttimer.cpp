@@ -12,11 +12,85 @@ SportTimer::SportTimer(QWidget *parent)
     connect(ui->pauseButton, &QPushButton::clicked, this, &SportTimer::pauseTimers);
     connect(ui->loadPresetButton, &QPushButton::clicked, this, &SportTimer::loadPresetTimers);
     connect(ui->savePresetButton, &QPushButton::clicked, this, &SportTimer::savePresetTimers);
+    connect(ui->presetsComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &SportTimer::loadSelectedPreset);
 
     ui->minutesSpinBox->setMinimum(0);
     ui->minutesSpinBox->setMaximum(59);
     ui->secondsSpinBox->setMinimum(0);
     ui->secondsSpinBox->setMaximum(59);
+
+    QFile file2(":/Toolery.qss");
+
+    if (file2.open(QIODevice::ReadOnly)) {
+        QString stylesheet = QTextStream(&file2).readAll();
+        setStyleSheet(stylesheet);
+        file2.close();
+    } else {
+        qDebug() << "Error: Could not open stylesheet file";
+        qDebug() << "File path: " << file2.fileName();
+        qDebug() << "Error string: " << file2.errorString();
+    }
+}
+
+void SportTimer::loadPresetsFromDatabase()
+{
+    QSqlQuery query;
+    if (!query.exec("SELECT id, name FROM presets")) {
+        qDebug() << "Error fetching presets:" << query.lastError().text();
+        return;
+    }
+
+    ui->presetsComboBox->clear();
+
+    while (query.next()) {
+        int presetId = query.value(0).toInt();
+        QString presetName = query.value(1).toString();
+        ui->presetsComboBox->addItem(presetName, presetId);
+    }
+}
+
+void SportTimer::loadPresetNamesFromDatabase()
+{
+    ui->presetsComboBox->clear();
+
+    QSqlQuery query;
+    if (!query.exec("SELECT id, name FROM presets")) {
+        qDebug() << "Error fetching preset names:" << query.lastError().text();
+        return;
+    }
+
+    while (query.next()) {
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        ui->presetsComboBox->addItem(name, id);
+    }
+}
+
+void SportTimer::loadSelectedPreset(int index)
+{
+    QString presetName = ui->presetsComboBox->itemText(index);
+    int presetId = ui->presetsComboBox->currentData().toInt();
+    loadPresetTimersById(presetId);
+}
+
+void SportTimer::loadPresetTimersById(int presetId)
+{
+    QSqlQuery query;
+    query.prepare("SELECT duration FROM presets WHERE id = :id");
+    query.bindValue(":id", presetId);
+    if (!query.exec()) {
+        qDebug() << "Error fetching preset timers:" << query.lastError().text();
+        return;
+    }
+
+    durations.clear();
+    while (query.next()) {
+        int duration = query.value(0).toInt();
+        durations.append(duration);
+    }
+
+    updateTimerListView();
 }
 
 void SportTimer::pauseTimers()
@@ -29,6 +103,7 @@ void SportTimer::pauseTimers()
 void SportTimer::addTimer(int duration)
 {
     durations.append(duration);
+    timers.append(new QBasicTimer());
 }
 
 void initializeDatabase()
@@ -76,7 +151,8 @@ void SportTimer::loadPresetTimersFromDatabase()
         int duration = query.value(0).toInt();
 
         this->addTimer(duration);
-    }updateTimerListView();
+    }
+    updateTimerListView();
 }
 
 void SportTimer::loadPresetTimers()
@@ -178,7 +254,11 @@ void SportTimer::addTimerConnect()
 void SportTimer::startTimers()
 {
     for (int i = 0; i < durations.size(); ++i) {
-        if (!timers[i]->isActive()) {
+        qDebug() << "Starting timer" << i;
+        qDebug() << "timers.size()" << timers.size();
+        if (i < timers.size() && !timers[i]->isActive()) {
+            qDebug() << "timers[i]->isActive()" << timers[i]->isActive();
+            qDebug() << "Starting timer" << i;
             timers[i]->start(1000, this);
             timerIndex = i;
             updateTimerText(i);

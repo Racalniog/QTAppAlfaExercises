@@ -8,6 +8,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QFile>
+#include <QOverload>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SportTimer; }
@@ -31,6 +33,7 @@ private slots:
     void pauseTimers();
     void loadPresetTimers();
     void savePresetTimers();
+    void loadSelectedPreset(int index);
 
 private:
     Ui::SportTimer *ui;
@@ -38,10 +41,13 @@ private:
     QList<QBasicTimer*> timers;
     int timerIndex;
     void loadPresetTimersFromDatabase();
+    void loadPresetNamesFromDatabase();
+    void loadPresetTimersById(int presetId);
     void updateTimerText(int index);
     void addTimer(int duration);
     void updateTimerListView();
     QRegularExpression fontSizeRegex();
+    void loadPresetsFromDatabase();
 };
 
 #endif // SPORTTIMER_H

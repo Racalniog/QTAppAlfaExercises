@@ -1,6 +1,7 @@
 /*-----QWidget-----*/
 QWidget
 {
+        background-color: #ADD8E6;
         color: red;
         font-size: 12px;
 }

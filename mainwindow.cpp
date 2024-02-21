@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     initNumberSystem();
     initColorMixer();
     initList();
-    setWindowTitle("Multi purpose Application");
+    setWindowTitle("Multi Purpose Application");
     QFile file(":/Toolery.qss");
 
     if (!file.exists()) {

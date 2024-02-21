@@ -14,19 +14,8 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QPushButton" name="addTimerButton">
-     <property name="text">
-      <string>Add Timer</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="startButton">
-     <property name="text">
-      <string>Start Training</string>
-     </property>
-    </widget>
+   <item row="4" column="1">
+    <widget class="QSpinBox" name="minutesSpinBox"/>
    </item>
    <item row="1" column="0">
     <widget class="QPushButton" name="savePresetButton">
@@ -42,35 +31,56 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Seconds</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Minutes</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QSpinBox" name="secondsSpinBox"/>
    </item>
-   <item row="3" column="1">
-    <widget class="QSpinBox" name="minutesSpinBox"/>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Seconds</string>
+     </property>
+    </widget>
    </item>
-   <item row="4" column="1">
+   <item row="6" column="0" colspan="2">
+    <widget class="QListWidget" name="timerListWidget"/>
+   </item>
+   <item row="5" column="1">
     <widget class="QPushButton" name="pauseButton">
      <property name="text">
       <string>Pause</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="2">
-    <widget class="QListWidget" name="timerListWidget"/>
+   <item row="0" column="1">
+    <widget class="QPushButton" name="startButton">
+     <property name="text">
+      <string>Start Training</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="addTimerButton">
+     <property name="text">
+      <string>Add Timer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="presetsComboBox"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPushButton" name="removeTimersButton">
+     <property name="text">
+      <string>Remove Timers</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
