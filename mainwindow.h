@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "paintwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,6 +27,8 @@ signals:
     void emitDrawCircle(bool);
 
 private slots:
+    void updateWindowTitle();
+
     //initQStackedWidget
     void actionWindow_1_clicked();
     void actionWindow_2_clicked();
@@ -63,7 +64,7 @@ private:
     Ui::MainWindow *ui;
     int counter = {};
     int basis;
-
+    QAction *currentAction;
     void showDialog();
 };
 #endif // MAINWINDOW_H

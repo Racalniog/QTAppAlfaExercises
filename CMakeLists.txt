@@ -11,6 +11,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml Sql)
 
 qt_standard_project_setup()
 
+qt_add_resources(RESOURCE_FILES resources.qrc)
+
 qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     main.cpp
     mainwindow.cpp mainwindow.h mainwindow.ui
@@ -20,6 +22,7 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     rssreader.h rssreader.cpp rssreader.ui
     sporttimer.h sporttimer.cpp sporttimer.ui
     paintwidget.h paintwidget.cpp paintwidget.ui
+    ${RESOURCE_FILES}
 )
 
 target_link_libraries(QTAlfaExercises PRIVATE

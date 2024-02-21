@@ -1,6 +1,6 @@
 #include "rssreader.h"
 #include "ui_rssreader.h"
-
+// TODO: add webcrawler for finding RSS feeds
 RSSReader::RSSReader(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::RSSReader)

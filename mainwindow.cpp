@@ -12,6 +12,42 @@ MainWindow::MainWindow(QWidget *parent)
     initNumberSystem();
     initColorMixer();
     initList();
+    setWindowTitle("Multi purpose Application");
+    QFile file(":/Toolery.qss");
+
+    if (!file.exists()) {
+        qDebug() << "Error: Stylesheet file does not exist";
+        qDebug() << "File path: " << file.fileName();
+    }
+
+    if (!file.permissions().testFlag(QFile::ReadUser)) {
+        qDebug() << "Error: No read permissions for stylesheet file";
+        qDebug() << "File path: " << file.fileName();
+    }
+
+    if (file.open(QIODevice::ReadOnly)) {
+        QString stylesheet = QTextStream(&file).readAll();
+        ui->page->setStyleSheet(stylesheet);
+        ui->page_2->setStyleSheet(stylesheet);
+        ui->page_5->setStyleSheet(stylesheet);
+        ui->page_7->setStyleSheet(stylesheet);
+
+        file.close();
+    } else {
+        qDebug() << "Error: Could not open stylesheet file";
+        qDebug() << "File path: " << file.fileName();
+        qDebug() << "Error string: " << file.errorString();
+    }
+
+}
+
+void MainWindow::updateWindowTitle()
+{
+    QAction *action = qobject_cast<QAction*>(sender()); // Get the sender QAction
+    if (action) {
+        currentAction = action; // Update the currentAction pointer
+        setWindowTitle(action->text()); // Set the window title to the text of the QAction
+    }
 }
 
 void MainWindow::initList(){
@@ -99,6 +135,15 @@ void MainWindow::onBlueChanged(int value)
 
 void MainWindow::initQStackedWidget()
 {
+    connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_3, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_4, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_5, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_6, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_7, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_8, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+
     ui->stackedWidget->setCurrentIndex(0);
     connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);
     connect(ui->actionWindow_2, &QAction::triggered, this, &MainWindow::actionWindow_2_clicked);

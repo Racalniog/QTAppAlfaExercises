@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>410</height>
+    <width>795</width>
+    <height>446</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -48,7 +48,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="sizePolicy">
@@ -634,7 +634,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>594</width>
+     <width>795</width>
      <height>25</height>
     </rect>
    </property>

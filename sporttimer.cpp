@@ -130,19 +130,17 @@ void SportTimer::wheelEvent(QWheelEvent *event)
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
         int delta = event->angleDelta().y();
         int fontSizeIncrement = 1;
-        if (delta > 0) {
-            QFont font = QApplication::font();
-            font.setPointSize(font.pointSize() + fontSizeIncrement);
-            QApplication::setFont(font);
-        } else if (delta < 0) {
-            QFont font = QApplication::font();
-            font.setPointSize(font.pointSize() - fontSizeIncrement);
-            QApplication::setFont(font);
+        QFont font = this->font();
+        int newPointSize = font.pointSize() + (delta > 0 ? fontSizeIncrement : -fontSizeIncrement);
+        if (newPointSize > 0) {
+            font.setPointSize(newPointSize);
+            this->setFont(font);
         }
     } else {
         QWidget::wheelEvent(event);
     }
 }
+
 
 void SportTimer::timerEvent(QTimerEvent *event)
 {

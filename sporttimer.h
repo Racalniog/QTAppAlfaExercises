@@ -41,6 +41,7 @@ private:
     void updateTimerText(int index);
     void addTimer(int duration);
     void updateTimerListView();
+    QRegularExpression fontSizeRegex();
 };
 
 #endif // SPORTTIMER_H
