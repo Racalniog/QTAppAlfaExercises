@@ -2,6 +2,9 @@
 #include "./ui_mainwindow.h"
 
 //TODO: add missing ui, cpp and h files
+// add     //findstr /R /N "^" ".\*.cpp" ".\*.h" | find /C ":"
+// 21.2 1405 loc
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -13,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     initColorMixer();
     initList();
     setWindowTitle("Multi Purpose Application");
-    QFile file(":/Toolery.qss");
+    QFile file(":/Adaptic.qss");
 
     if (!file.exists()) {
         qDebug() << "Error: Stylesheet file does not exist";

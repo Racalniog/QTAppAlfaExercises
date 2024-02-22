@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>Toolery.qss</file>
+        <file>Adaptic.qss</file>
+        <file>ExcelOffice.qss</file>
+        <file>Medize.qss</file>
+        <file>WordOffice.qss</file>
     </qresource>
 </RCC>

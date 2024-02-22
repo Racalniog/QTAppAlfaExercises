@@ -14,47 +14,10 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="1">
-    <widget class="QSpinBox" name="minutesSpinBox"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="savePresetButton">
-     <property name="text">
-      <string>Save Preset</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="loadPresetButton">
-     <property name="text">
-      <string>Load Preset</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="1">
-    <widget class="QLabel" name="label_2">
+    <widget class="QPushButton" name="removeTimersButton">
      <property name="text">
-      <string>Minutes</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QSpinBox" name="secondsSpinBox"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Seconds</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QListWidget" name="timerListWidget"/>
-   </item>
-   <item row="5" column="1">
-    <widget class="QPushButton" name="pauseButton">
-     <property name="text">
-      <string>Pause</string>
+      <string>Remove Timers</string>
      </property>
     </widget>
    </item>
@@ -65,6 +28,42 @@
      </property>
     </widget>
    </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QListWidget" name="timerListWidget"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="presetsComboBox">
+     <property name="currentText">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Load Preset</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QPushButton" name="pauseButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>Pause</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSpinBox" name="minutesSpinBox">
+     <property name="suffix">
+      <string> minutes</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QPushButton" name="addTimerButton">
      <property name="text">
@@ -72,13 +71,30 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QComboBox" name="presetsComboBox"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="removeTimersButton">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="savePresetButton">
      <property name="text">
-      <string>Remove Timers</string>
+      <string>Save Preset</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLineEdit" name="presetSaveLineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="placeholderText">
+      <string>Preset Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QSpinBox" name="secondsSpinBox">
+     <property name="suffix">
+      <string> seconds</string>
      </property>
     </widget>
    </item>

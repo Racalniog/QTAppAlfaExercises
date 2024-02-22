@@ -31,23 +31,27 @@ private slots:
     void addTimerConnect();
     void startTimers();
     void pauseTimers();
-    void loadPresetTimers();
     void savePresetTimers();
     void loadSelectedPreset(int index);
+    void onPresetNameChanged(const QString& text);
+    void removeSelectedTimers();
+    void removeTimers();
 
 private:
-    Ui::SportTimer *ui;
-    QList<int> durations;
-    QList<QBasicTimer*> timers;
-    int timerIndex;
+    Ui::SportTimer *ui = {};
+    QList<int> durations = {};
+    QList<QBasicTimer*> timers = {};
+    QRegularExpression fontSizeRegex();
+    int timerIndex = {};
+
     void loadPresetTimersFromDatabase();
-    void loadPresetNamesFromDatabase();
     void loadPresetTimersById(int presetId);
     void updateTimerText(int index);
-    void addTimer(int duration);
     void updateTimerListView();
-    QRegularExpression fontSizeRegex();
     void loadPresetsFromDatabase();
+    void savePresetToDatabase(const QString &presetName);
+    void initializeDatabase();
+    void setup();
 };
 
 #endif // SPORTTIMER_H

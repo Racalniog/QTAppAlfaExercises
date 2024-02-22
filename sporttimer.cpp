@@ -6,21 +6,30 @@ SportTimer::SportTimer(QWidget *parent)
     , ui(new Ui::SportTimer)
 {
     ui->setupUi(this);
+    setup();
+    initializeDatabase();
+    loadPresetsFromDatabase();
+}
+/**
+ * @brief Setup function to initialize UI elements and connect signals to slots.
+ */
+void SportTimer::setup(){
     setMouseTracking(true);
     connect(ui->addTimerButton, &QPushButton::clicked, this, &SportTimer::addTimerConnect);
     connect(ui->startButton, &QPushButton::clicked, this, &SportTimer::startTimers);
     connect(ui->pauseButton, &QPushButton::clicked, this, &SportTimer::pauseTimers);
-    connect(ui->loadPresetButton, &QPushButton::clicked, this, &SportTimer::loadPresetTimers);
     connect(ui->savePresetButton, &QPushButton::clicked, this, &SportTimer::savePresetTimers);
     connect(ui->presetsComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &SportTimer::loadSelectedPreset);
+    connect(ui->presetSaveLineEdit, &QLineEdit::textChanged, this, &SportTimer::onPresetNameChanged);
+    connect(ui->removeTimersButton, &QPushButton::clicked, this, &SportTimer::removeTimers);
 
     ui->minutesSpinBox->setMinimum(0);
     ui->minutesSpinBox->setMaximum(59);
     ui->secondsSpinBox->setMinimum(0);
     ui->secondsSpinBox->setMaximum(59);
 
-    QFile file2(":/Toolery.qss");
+    QFile file2(":/Adaptic.qss");
 
     if (file2.open(QIODevice::ReadOnly)) {
         QString stylesheet = QTextStream(&file2).readAll();
@@ -32,7 +41,127 @@ SportTimer::SportTimer(QWidget *parent)
         qDebug() << "Error string: " << file2.errorString();
     }
 }
+/**
+ * @brief Removes all timers and clears the timer list widget
+ * with the removeTimersButton
+ */
+void SportTimer::removeTimers()
+{
+    durations.clear();
 
+    for (QBasicTimer *timer : timers) {
+        timer->stop();
+        delete timer;
+    }
+    timers.clear();
+
+    ui->timerListWidget->clear();
+}
+//TODO add button for this selectiv removable
+/**
+ * @brief Removes selected timer from the list widget and durations list.
+ */
+void SportTimer::removeSelectedTimers() {
+    QList<QListWidgetItem*> selectedItems = ui->timerListWidget->selectedItems();
+
+    for (QListWidgetItem *item : selectedItems) {
+        int index = ui->timerListWidget->row(item);
+        delete item;
+
+        if (index >= 0 && index < durations.size()) {
+            durations.removeAt(index);
+
+            // Adjust the timer index if necessary
+            if (index == timerIndex) {
+                if (timers[index]->isActive()) {
+                    timers[index]->stop();
+                }
+
+                if (timerIndex >= durations.size()) {
+                    timerIndex = durations.size() - 1;
+                }
+            } else if (index < timerIndex) {
+                --timerIndex;
+            }
+        }
+    }
+
+    updateTimerListView();
+}
+/**
+ * @brief Slot invoked when the preset name is changed in
+ * the text field and saved to the db with enter.
+ *
+ * @param text The new text in the preset name line edit.
+ */
+void SportTimer::onPresetNameChanged(const QString& text) {
+    if (text.isEmpty()) {
+        return;
+    }
+
+    // Check if the user has pressed Enter or Return
+    if (text.endsWith("\n")) {
+        // Remove the newline character from the text
+        QString presetName = text.trimmed();
+
+        // Check if the preset already exists in the database
+        QSqlQuery query;
+        query.prepare("SELECT id FROM presets WHERE name = :name");
+        query.bindValue(":name", presetName);
+        if (query.exec() && query.next()) {
+            qDebug() << "Preset" << presetName << "already exists.";
+            return;
+        }
+
+        savePresetToDatabase(presetName);
+
+        ui->presetSaveLineEdit->clear();
+    }
+}
+/**
+ * @brief Saves the preset with the given name of the presetSaveLineEdit ui
+ * element to the database.
+ */
+void SportTimer::savePresetToDatabase(const QString& presetName) {
+    QSqlDatabase db = QSqlDatabase::database();
+    if (!db.isValid()) {
+        qDebug() << "Database connection is invalid.";
+        return;
+    }
+
+    if (!db.transaction()) {
+        qDebug() << "Transaction failed to start:" << db.lastError().text();
+        return;
+    }
+
+    QSqlQuery query(db);
+    query.prepare("INSERT INTO presets (name, duration) VALUES (:name, :duration)");
+
+    for (int duration : durations) {
+        query.bindValue(":name", presetName);
+        query.bindValue(":duration", duration);
+
+        if (!query.exec()) {
+            qDebug() << "Error executing query:" << query.lastError().text();
+            db.rollback();
+            return;
+        }
+    }
+
+    if (!db.commit()) {
+        qDebug() << "Transaction failed to commit:" << db.lastError().text();
+        return;
+    }
+
+    // optionall message
+    qDebug() << "Preset" << presetName << "saved to database.";
+
+    loadPresetsFromDatabase();
+}
+
+/**
+ * @brief Loads presets from the database and populates the presets combo box.
+ */
 void SportTimer::loadPresetsFromDatabase()
 {
     QSqlQuery query;
@@ -46,34 +175,40 @@ void SportTimer::loadPresetsFromDatabase()
     while (query.next()) {
         int presetId = query.value(0).toInt();
         QString presetName = query.value(1).toString();
-        ui->presetsComboBox->addItem(presetName, presetId);
+
+        bool isLoaded = false;
+        for (int i = 0; i < ui->presetsComboBox->count(); ++i) {
+            if (ui->presetsComboBox->itemText(i) == presetName) {
+                isLoaded = true;
+                break;
+            }
+        }
+        if (!isLoaded) {
+            ui->presetsComboBox->addItem(presetName, presetId);
+        }
     }
 }
 
-void SportTimer::loadPresetNamesFromDatabase()
-{
-    ui->presetsComboBox->clear();
-
-    QSqlQuery query;
-    if (!query.exec("SELECT id, name FROM presets")) {
-        qDebug() << "Error fetching preset names:" << query.lastError().text();
-        return;
-    }
-
-    while (query.next()) {
-        int id = query.value(0).toInt();
-        QString name = query.value(1).toString();
-        ui->presetsComboBox->addItem(name, id);
-    }
-}
-
+/**
+ * @brief Loads the timers associated with a selected preset from the combo
+ * box drop down menu.
+ *
+ * @param index The index of the selected preset in the combo box.
+ */
 void SportTimer::loadSelectedPreset(int index)
 {
-    QString presetName = ui->presetsComboBox->itemText(index);
     int presetId = ui->presetsComboBox->currentData().toInt();
     loadPresetTimersById(presetId);
-}
 
+    // Clear the selection and show the placeholder text again
+    ui->presetsComboBox->setCurrentIndex(-1);
+    ui->presetsComboBox->setPlaceholderText("Load Selected Preset");
+}
+/**
+ * @brief Loads the timers associated with a selected preset from the database.
+ *
+ * @param presetId The ID of the selected preset.
+ */
 void SportTimer::loadPresetTimersById(int presetId)
 {
     QSqlQuery query;
@@ -100,18 +235,8 @@ void SportTimer::pauseTimers()
     }
 }
 
-void SportTimer::addTimer(int duration)
+void SportTimer::initializeDatabase()
 {
-    durations.append(duration);
-    timers.append(new QBasicTimer());
-}
-
-void initializeDatabase()
-{
-    if (QSqlDatabase::contains("qt_sql_default_connection")) {
-        QSqlDatabase::removeDatabase("qt_sql_default_connection");
-    }
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("presets.db");
 
@@ -121,7 +246,7 @@ void initializeDatabase()
     }
 
     QSqlQuery query;
-    if (!query.exec("CREATE TABLE IF NOT EXISTS presets (id INTEGER PRIMARY KEY, duration INTEGER)")) {
+    if (!query.exec("CREATE TABLE IF NOT EXISTS presets (id INTEGER PRIMARY KEY, name TEXT, duration INTEGER)")) {
         qDebug() << "Error creating table:" << query.lastError().text();
         return;
     }
@@ -139,68 +264,41 @@ void SportTimer::updateTimerListView()
     }
 }
 
-void SportTimer::loadPresetTimersFromDatabase()
-{
-    QSqlQuery query;
-    if (!query.exec("SELECT duration FROM presets")) {
-        qDebug() << "Error fetching presets:" << query.lastError().text();
-        return;
-    }
-
-    while (query.next()) {
-        int duration = query.value(0).toInt();
-
-        this->addTimer(duration);
-    }
-    updateTimerListView();
-}
-
-void SportTimer::loadPresetTimers()
-{
-    initializeDatabase();
-    loadPresetTimersFromDatabase();
-
-}
-
-void savePresetTimersToDatabase(const QList<int> &durations)
-{
-    QSqlQuery query;
-    for (int duration : durations) {
-        if (!query.prepare("INSERT INTO presets (duration) VALUES (:duration)")) {
-            qDebug() << "Error preparing query:" << query.lastError().text();
-            return;
-        }
-        query.bindValue(":duration", duration);
-        if (!query.exec()) {
-            qDebug() << "Error executing query:" << query.lastError().text();
-            return;
-        }
-    }
-}
-
 SportTimer::~SportTimer()
 {
+    QSqlDatabase db = QSqlDatabase::database();
+    db.close();
     delete ui;
 }
 
+/**
+ * @brief Saves the preset timers to the database with
+ * savePresetButton.
+ *
+ * @note This function assumes that the preset name
+ * is provided via the presetSaveLineEdit widget.
+ */
 void SportTimer::savePresetTimers()
 {
-    initializeDatabase();
+    QString presetName = ui->presetSaveLineEdit->text().trimmed();
 
-    QSqlQuery query;
-    for (int duration : durations) {
-        if (!query.prepare("INSERT INTO presets (duration) VALUES (:duration)")) {
-            qDebug() << "Error preparing query:" << query.lastError().text();
-            return;
-        }
-        query.bindValue(":duration", duration);
-        if (!query.exec()) {
-            qDebug() << "Error executing query:" << query.lastError().text();
-            return;
-        }
+    if (presetName.isEmpty()) {
+        qDebug() << "Preset name is empty.";
+        return;
     }
-}
 
+    savePresetToDatabase(presetName);
+
+    ui->presetSaveLineEdit->clear();
+
+    loadPresetsFromDatabase();
+}
+/**
+ * @brief Handles the wheel event for the widget to
+ * resize the font sizes.
+ * TODO fix with qss
+ * @param event The wheel event object.
+ */
 void SportTimer::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
@@ -217,7 +315,13 @@ void SportTimer::wheelEvent(QWheelEvent *event)
     }
 }
 
-
+/**
+ * @brief Handles timer events for the widget.
+ *
+ * This function is responsible for updating the remaining durations of active timers.
+ *
+ * @param event The timer event object.
+ */
 void SportTimer::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timers[timerIndex]->timerId()) {
@@ -237,7 +341,11 @@ void SportTimer::timerEvent(QTimerEvent *event)
         }
     }
 }
-
+/**
+ * @brief Connects the signals and slots for various UI elements.
+ *
+ * This function sets up the connections between buttons and their respective slots.
+ */
 void SportTimer::addTimerConnect()
 {
     int minutes = ui->minutesSpinBox->value();
@@ -267,6 +375,11 @@ void SportTimer::startTimers()
     }
 }
 
+/**
+ * @brief Updates the text of the timer list item with the remaining duration.
+ *
+ * @param index The index of the timer in the durations list.
+ */
 void SportTimer::updateTimerText(int index)
 {
     int remainingTime = durations[index];
