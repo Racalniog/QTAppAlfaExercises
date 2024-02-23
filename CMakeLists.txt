@@ -6,7 +6,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Network Xml Sql)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets
+    Network Xml Sql)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml Sql)
 
 qt_standard_project_setup()

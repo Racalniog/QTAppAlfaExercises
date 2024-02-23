@@ -328,7 +328,6 @@ void SportTimer::savePresetTimers()
 /**
  * @brief Handles the wheel event for the widget to
  * resize the font sizes.
- * TODO fix with qss
  * @param event The wheel event object.
  */
 void SportTimer::wheelEvent(QWheelEvent *event)
@@ -341,6 +340,12 @@ void SportTimer::wheelEvent(QWheelEvent *event)
         if (newPointSize > 0) {
             font.setPointSize(newPointSize);
             this->setFont(font);
+
+            QString existingStyleSheet = this->styleSheet();
+
+            // Combine existing stylesheet with new font-size rule
+            QString newStyleSheet = existingStyleSheet + QString("\n* { font-size: %1pt; }").arg(newPointSize);
+            this->setStyleSheet(newStyleSheet);
         }
     } else {
         QWidget::wheelEvent(event);
