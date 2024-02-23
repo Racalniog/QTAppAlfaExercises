@@ -357,56 +357,38 @@ void SportTimer::wheelEvent(QWheelEvent *event)
 void SportTimer::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timers[timerIndex]->timerId()) {
-        // Check if timerIndex is within the range of timers list
-        if (timerIndex >= 0 && timerIndex < timers.size() && timerIndex < durationWithExercise.keys().size()) {
-            //index out of bounds
-            int currentDuration = durationWithExercise.value(timerIndex).first;
+        // Check if timerIndex is valid
+        if (timerIndex >= 0 && 0 < timers.size()) {
+            // Retrieve the duration for the first timer
+            int currentDuration = durationWithExercise.first().first;
+
+            // Update the current duration
             currentDuration -= 1000;
 
-            // Check if timerIndex is within the range of keys list
-            if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
-                int oldKey = durationWithExercise.keys()[timerIndex];
-                QString trainingName = durationWithExercise.value(oldKey).second;
-                //deletes all? elements when the timers have the same duration, use QMap<int, QPair<QString, int>> indexedData; instead?
-                durationWithExercise.remove(oldKey);
-                durationWithExercise.insert(oldKey, {currentDuration, trainingName});
-            } else {
-                qDebug() << "timerIndex out of range for keys list.";
-            }
-
             if (currentDuration <= 0) {
-                // Check if timerIndex is within the range of keys list
-                if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
-                    durationWithExercise.keys()[timerIndex] = 0;
-                } else {
-                    qDebug() << "timerIndex out of range for keys list.";
-                }
-
+                // Stop and remove the timer
                 timers[timerIndex]->stop();
                 delete timers[timerIndex];
                 timers.removeAt(timerIndex);
-
-                // Check if timerIndex is within the range of keys list
-                if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
-                    durationWithExercise.remove(durationWithExercise.keys()[timerIndex]);
-                } else {
-                    qDebug() << "timerIndex out of range for keys list.";
-                }
-
                 delete ui->timerListWidget->takeItem(timerIndex);
 
+                // Remove the duration and exercise entry
+                durationWithExercise.remove(timerIndex);
+
+                // Start the next timer if available
                 if (timerIndex < timers.size()) {
                     timers[timerIndex]->start(1000, this);
                 }
             } else {
+                // Update the duration in the map
+                durationWithExercise[timerIndex].first = currentDuration;
                 updateTimerText(timerIndex);
             }
         } else {
-            qDebug() << "timerIndex out of range for timers list.";
+            qDebug() << "Invalid timerIndex:" << timerIndex;
         }
     }
 }
-
 
 
 /**
@@ -460,14 +442,17 @@ void SportTimer::startTimers()
  */
 void SportTimer::updateTimerText(int index)
 {
+    //int index = durationWithExercise.value()
     int remainingTime = durationWithExercise.value(index).first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
     QString timerText = QString::number(minutes).rightJustified(2, '0') + ":" + QString::number(seconds).rightJustified(2, '0');
 
     QListWidgetItem *item = ui->timerListWidget->item(index);
-    item->setText("Timer " + QString::number(index + 1) + ": " + timerText);
-
+    //item->setText("Timer " + QString::number(durationWithExercise.value(index).first) + ": " + timerText);
+    item->setText("Timer " + QString::number(durationWithExercise.firstKey()) +
+                  " " + durationWithExercise.first().second + " "
+                                 + ": " + timerText);
     if (remainingTime <= 5000) {
         if (remainingTime % 1000 == 0) {
             if (item->foreground() == Qt::red)
