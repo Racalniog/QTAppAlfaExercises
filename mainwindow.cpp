@@ -3,7 +3,7 @@
 
 //TODO: add missing ui, cpp and h files
 // add     //findstr /R /N "^" ".\*.cpp" ".\*.h" | find /C ":"
-// 21.2 1405 loc
+// 22.2 1525 loc
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
