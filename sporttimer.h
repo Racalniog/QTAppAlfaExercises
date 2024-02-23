@@ -39,7 +39,7 @@ private slots:
 
 private:
     Ui::SportTimer *ui = {};
-    QMap<int, QString> durationWithExercise = {};
+    QMap<int, QPair<int, QString>> durationWithExercise = {};
     QList<QBasicTimer*> timers = {};
     QRegularExpression fontSizeRegex();
     int timerIndex = {};
@@ -47,7 +47,7 @@ private:
     void loadPresetTimersFromDatabase();
     void updateTimerText(int index);
     void updateTimerListView();
-    void savePresetToDatabase(const QString &presetName, const QMap<int, QString> durationWithExercise);
+    void savePresetToDatabase(const QString &presetName, const QMap<int, QPair<int, QString>> durationWithExercise);
     void loadPresetsFromDatabase();
     void initializeDatabase();
     void setup();

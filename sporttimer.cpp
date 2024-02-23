@@ -124,7 +124,7 @@ void SportTimer::onPresetNameChanged(const QString& text) {
  * @brief Saves the preset with the given name of the presetSaveLineEdit ui
  * element to the database.
  */
-void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int, QString> durationWithExercise) {
+void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int, QPair<int, QString>> durationWithExercise) {
     QSqlDatabase db = QSqlDatabase::database();
     if (!db.isValid()) {
         qDebug() << "Database connection is invalid.";
@@ -138,11 +138,11 @@ void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int,
 
     QSqlQuery query(db);
     query.prepare("INSERT INTO presets (name, duration, training_name) VALUES (:name, :id, :duration, :training_name)");
-    QMap<int, QString>::const_iterator it;
+    QMap<int, QPair<int, QString>>::const_iterator it;
     for (it = durationWithExercise.constBegin(); it != durationWithExercise.constEnd(); ++it) {
         query.bindValue(":training_name", presetName);
-        query.bindValue(":duration", it.key());
-        query.bindValue(":exercise_name", it.value());
+        query.bindValue(":duration", it.value().first);
+        query.bindValue(":exercise_name", it.value().second);
 
         if (!query.exec()) {
             qDebug() << "Error executing query:" << query.lastError().text();
@@ -229,8 +229,9 @@ void SportTimer::loadPresetTimersByName(QString trainingName)
 //TODO fix loading of timers from db !!!
     while (query.next()) {
         count +=1;
-        int duration = query.value(0).toInt();
-        durationWithExercise.insert(duration, trainingName);
+        QString exerciseName = query.value(2).toString();
+        int duration = query.value(1).toInt();
+        durationWithExercise.insert(count, {duration, exerciseName});
         int minutes = duration / 60000;
         int seconds = (duration % 60000) / 1000;
         QString timerText = QString::number(minutes).rightJustified(2, '0') + ":"
@@ -282,10 +283,10 @@ void SportTimer::initializeDatabase()
 void SportTimer::updateTimerListView()
 {
     //ui->timerListWidget->clear();
-    QMap<int, QString>::const_iterator it;
+    QMap<int, QPair<int, QString>>::const_iterator it;
     for (it = durationWithExercise.constBegin(); it != durationWithExercise.constEnd(); ++it) {
-        int minutes = it.key() / 60000;
-        int seconds = (it.key() % 60000) / 1000;
+        int minutes = it.value().first / 60000;
+        int seconds = (it.value().first % 60000) / 1000;
         QString timerText = QString::number(minutes).rightJustified(2, '0') + ":"
                             + QString::number(seconds).rightJustified(2, '0');
         ui->timerListWidget->addItem("Timer " + QString::number(it.key()) + ": " + timerText);
@@ -356,30 +357,56 @@ void SportTimer::wheelEvent(QWheelEvent *event)
 void SportTimer::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timers[timerIndex]->timerId()) {
-        int currentDuration = durationWithExercise.keys()[timerIndex]; // Get the duration key from the map
-        currentDuration -= 1000;
-        durationWithExercise.keys()[timerIndex] = currentDuration; // Update the duration in the map
+        // Check if timerIndex is within the range of timers list
+        if (timerIndex >= 0 && timerIndex < timers.size() && timerIndex < durationWithExercise.keys().size()) {
+            //index out of bounds
+            int currentDuration = durationWithExercise.value(timerIndex).first;
+            currentDuration -= 1000;
 
-        if (currentDuration <= 0) {
-            durationWithExercise[durationWithExercise.keys()[timerIndex]] = 0; // Update the duration in the map to 0
+            // Check if timerIndex is within the range of keys list
+            if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
+                int oldKey = durationWithExercise.keys()[timerIndex];
+                QString trainingName = durationWithExercise.value(oldKey).second;
+                //deletes all? elements when the timers have the same duration, use QMap<int, QPair<QString, int>> indexedData; instead?
+                durationWithExercise.remove(oldKey);
+                durationWithExercise.insert(oldKey, {currentDuration, trainingName});
+            } else {
+                qDebug() << "timerIndex out of range for keys list.";
+            }
 
-            timers[timerIndex]->stop();
-            delete timers[timerIndex];
-            timers.removeAt(timerIndex);
+            if (currentDuration <= 0) {
+                // Check if timerIndex is within the range of keys list
+                if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
+                    durationWithExercise.keys()[timerIndex] = 0;
+                } else {
+                    qDebug() << "timerIndex out of range for keys list.";
+                }
 
-            QString exerciseName = durationWithExercise.values()[timerIndex]; // Get the exercise name
-            durationWithExercise.remove(durationWithExercise.keys()[timerIndex]); // Remove the exercise from the map
+                timers[timerIndex]->stop();
+                delete timers[timerIndex];
+                timers.removeAt(timerIndex);
 
-            delete ui->timerListWidget->takeItem(timerIndex);
+                // Check if timerIndex is within the range of keys list
+                if (timerIndex >= 0 && timerIndex < durationWithExercise.keys().size()) {
+                    durationWithExercise.remove(durationWithExercise.keys()[timerIndex]);
+                } else {
+                    qDebug() << "timerIndex out of range for keys list.";
+                }
 
-            if (timerIndex < timers.size()) {
-                timers[timerIndex]->start(1000, this);
+                delete ui->timerListWidget->takeItem(timerIndex);
+
+                if (timerIndex < timers.size()) {
+                    timers[timerIndex]->start(1000, this);
+                }
+            } else {
+                updateTimerText(timerIndex);
             }
         } else {
-            updateTimerText(timerIndex);
+            qDebug() << "timerIndex out of range for timers list.";
         }
     }
 }
+
 
 
 /**
@@ -399,7 +426,7 @@ void SportTimer::addTimerConnect()
     int minutes = ui->minutesSpinBox->value();
     int seconds = ui->secondsSpinBox->value();
     int duration = (minutes * 60 + seconds) * 1000;
-    durationWithExercise.insert(duration, exerciseName);
+    durationWithExercise.insert(durationWithExercise.size(), {duration, exerciseName});
 
     QString timerText = QString::number(minutes).rightJustified(2, '0')
                         + ":" + QString::number(seconds).rightJustified(2, '0');
@@ -433,7 +460,7 @@ void SportTimer::startTimers()
  */
 void SportTimer::updateTimerText(int index)
 {
-    int remainingTime = durationWithExercise.keys()[index];
+    int remainingTime = durationWithExercise.value(index).first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
     QString timerText = QString::number(minutes).rightJustified(2, '0') + ":" + QString::number(seconds).rightJustified(2, '0');
