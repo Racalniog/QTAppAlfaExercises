@@ -14,7 +14,71 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="0" colspan="2">
+   <item row="0" column="0">
+    <widget class="QPushButton" name="addTimerButton">
+     <property name="text">
+      <string>Add Timer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="exerciseNamelineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="placeholderText">
+      <string>Exercise name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="savePresetButton">
+     <property name="text">
+      <string>Save Preset</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLineEdit" name="presetSaveLineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="placeholderText">
+      <string>Preset Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="2">
+    <widget class="QListWidget" name="timerListWidget"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QSpinBox" name="secondsSpinBox">
+     <property name="suffix">
+      <string> seconds</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="minutesSpinBox">
+     <property name="suffix">
+      <string> minutes</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="startButton">
+     <property name="text">
+      <string>Start Training</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
     <widget class="QPushButton" name="pauseButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -30,65 +94,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QSpinBox" name="secondsSpinBox">
-     <property name="suffix">
-      <string> seconds</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QSpinBox" name="minutesSpinBox">
-     <property name="suffix">
-      <string> minutes</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="savePresetButton">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="removeSelectedTimerButton">
      <property name="text">
-      <string>Save Preset</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QPushButton" name="removeTimersButton">
-     <property name="text">
-      <string>Remove Timers</string>
+      <string>Remove Selected Timer</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QPushButton" name="startButton">
-     <property name="text">
-      <string>Start Training</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLineEdit" name="presetSaveLineEdit">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="placeholderText">
-      <string>Preset Name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QPushButton" name="addTimerButton">
-     <property name="text">
-      <string>Add Timer</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="2">
-    <widget class="QListWidget" name="timerListWidget"/>
-   </item>
-   <item row="2" column="1">
     <widget class="QComboBox" name="presetsComboBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -104,16 +117,10 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLineEdit" name="exerciseNamelineEdit">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="placeholderText">
-      <string>Exercise name</string>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="removeTimersButton">
+     <property name="text">
+      <string>Remove All Timers</string>
      </property>
     </widget>
    </item>

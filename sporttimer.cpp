@@ -1,6 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-
+//TODO fix memory leak from qss reload in wheelEvent function
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -21,6 +21,7 @@ void SportTimer::setup(){
             this, &SportTimer::loadSelectedPreset);
     connect(ui->presetSaveLineEdit, &QLineEdit::textChanged, this, &SportTimer::onPresetNameChanged);
     connect(ui->removeTimersButton, &QPushButton::clicked, this, &SportTimer::removeTimers);
+    connect(ui->removeSelectedTimerButton, &QPushButton::clicked, this, &SportTimer::removeSelectedTimers);
 
     ui->minutesSpinBox->setMinimum(0);
     ui->minutesSpinBox->setMaximum(59);
@@ -57,7 +58,6 @@ void SportTimer::removeTimers()
     ui->timerListWidget->clear();
 }
 
-//TODO add button for this selectiv removable
 /**
  * @brief Removes selected timer from the list widget and durations list.
  */
@@ -70,23 +70,9 @@ void SportTimer::removeSelectedTimers() {
 
         if (index >= 0 && index < durationWithExercise.size()) {
             durationWithExercise.remove(index);
-
-            // Adjust the timer index if necessary
-            if (index == timerIndex) {
-                if (timers[index]->isActive()) {
-                    timers[index]->stop();
-                }
-
-                if (timerIndex >= durationWithExercise.size()) {
-                    timerIndex = durationWithExercise.size() - 1;
-                }
-            } else if (index < timerIndex) {
-                --timerIndex;
-            }
+            timers.remove(index);
         }
     }
-
-    updateTimerListView();
 }
 
 /**
@@ -226,7 +212,7 @@ void SportTimer::loadPresetTimersByName(QString trainingName)
     int count = {};
     //durations.clear();
     //timers.clear();
-//TODO fix loading of timers from db !!!
+    //TODO fix loading of timers from db !!!
     while (query.next()) {
         count +=1;
         QString exerciseName = query.value(2).toString();
@@ -404,7 +390,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
 void SportTimer::addTimerConnect()
 {
     QString exerciseName = ui->exerciseNamelineEdit->text().trimmed();
-//TODO change durations to keep time and exercise name
+    //TODO change durations to keep time and exercise name
     if (exerciseName.isEmpty()) {
         qDebug() << "No exercise name given. Setting to default";
         exerciseName = "exercise";
@@ -457,7 +443,7 @@ void SportTimer::updateTimerText(int index)
     //item->setText("Timer " + QString::number(durationWithExercise.value(index).first) + ": " + timerText);
     item->setText("Timer " + QString::number(durationWithExercise.firstKey()) +
                   " " + durationWithExercise.first().second + " "
-                                 + ": " + timerText);
+                  + ": " + timerText);
     if (remainingTime <= 5000) {
         if (remainingTime % 1000 == 0) {
             if (item->foreground() == Qt::red)
