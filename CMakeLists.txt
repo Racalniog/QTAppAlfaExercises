@@ -24,6 +24,7 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     sporttimer.h sporttimer.cpp sporttimer.ui
     paintwidget.h paintwidget.cpp paintwidget.ui
     ${RESOURCE_FILES}
+    sporttimerdatabase.cpp
 )
 
 target_link_libraries(QTAlfaExercises PRIVATE
