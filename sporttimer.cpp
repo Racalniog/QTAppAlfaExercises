@@ -82,94 +82,6 @@ void SportTimer::pauseTimers()
     }
 }
 
-void SportTimer::updateTimerListView()
-{
-    QMap<int, QPair<int, QString>>::const_iterator it;
-    for (it = durationWithExercise.constBegin(); it != durationWithExercise.constEnd(); ++it) {
-        int minutes = it.value().first / 60000;
-        int seconds = (it.value().first % 60000) / 1000;
-        QString timerText = QString::number(minutes).rightJustified(2, '0') + ":"
-                            + QString::number(seconds).rightJustified(2, '0');
-        ui->timerListWidget->addItem("Timer " + QString::number(it.key()) + ": " + timerText);
-    }
-}
-
-SportTimer::~SportTimer()
-{
-    QSqlDatabase db = QSqlDatabase::database();
-    db.close();
-    delete ui;
-}
-
-/**
- * @brief Handles the wheel event for the widget to
- * resize the font sizes.
- * @param event The wheel event object.
- */
-void SportTimer::wheelEvent(QWheelEvent *event)
-{
-    if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
-        int delta = event->angleDelta().y();
-        int fontSizeIncrement = 1;
-        QFont font = this->font();
-        int newPointSize = font.pointSize() + (delta > 0 ? fontSizeIncrement : -fontSizeIncrement);
-        if (newPointSize > 0) {
-            font.setPointSize(newPointSize);
-            this->setFont(font);
-
-            QString existingStyleSheet = this->styleSheet();
-
-            // Combine existing stylesheet with new font-size rule
-            QString newStyleSheet = existingStyleSheet + QString("\n* { font-size: %1pt; }").arg(newPointSize);
-            this->setStyleSheet(newStyleSheet);
-        }
-    } else {
-        QWidget::wheelEvent(event);
-    }
-}
-
-/**
- * @brief Handles timer events for the widget.
- *
- * This function is responsible for updating the remaining durations of active timers.
- *
- * @param event The timer event object.
- */
-void SportTimer::timerEvent(QTimerEvent *event)
-{
-    if (event->timerId() == timers[timerIndex]->timerId()) {
-        // Check if timerIndex is valid
-        if (timerIndex >= 0 && 0 < timers.size()) {
-            int currentDuration = durationWithExercise.first().first;
-
-            // Update the current duration
-            currentDuration -= 1000;
-
-            if (currentDuration <= 0) {
-                // Stop and remove the timer
-                timers[timerIndex]->stop();
-                delete timers[timerIndex];
-                timers.removeAt(timerIndex);
-                delete ui->timerListWidget->takeItem(timerIndex);
-
-                // Remove the duration and exercise entry
-                durationWithExercise.remove(timerIndex);
-
-                // Start the next timer if available
-                if (timerIndex < timers.size()) {
-                    timers[timerIndex]->start(1000, this);
-                }
-            } else {
-                // Update the duration in the map
-                durationWithExercise[timerIndex].first = currentDuration;
-                updateTimerText(timerIndex);
-            }
-        } else {
-            qDebug() << "Invalid timerIndex:" << timerIndex;
-        }
-    }
-}
-
 /**
  * @brief Connects the signals and slots for various UI elements.
  *
@@ -240,4 +152,80 @@ void SportTimer::updateTimerText(int index)
     } else {
         item->setForeground(Qt::black);
     }
+}
+
+/**
+ * @brief Handles timer events for the widget.
+ *
+ * This function is responsible for updating the remaining durations of active timers.
+ *
+ * @param event The timer event object.
+ */
+void SportTimer::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == timers[timerIndex]->timerId()) {
+        // Check if timerIndex is valid
+        if (timerIndex >= 0 && 0 < timers.size()) {
+            int currentDuration = durationWithExercise.first().first;
+
+            // Update the current duration
+            currentDuration -= 1000;
+
+            if (currentDuration <= 0) {
+                // Stop and remove the timer
+                timers[timerIndex]->stop();
+                delete timers[timerIndex];
+                timers.removeAt(timerIndex);
+                delete ui->timerListWidget->takeItem(timerIndex);
+
+                // Remove the duration and exercise entry
+                durationWithExercise.remove(timerIndex);
+
+                // Start the next timer if available
+                if (timerIndex < timers.size()) {
+                    timers[timerIndex]->start(1000, this);
+                }
+            } else {
+                // Update the duration in the map
+                durationWithExercise[timerIndex].first = currentDuration;
+                updateTimerText(timerIndex);
+            }
+        } else {
+            qDebug() << "Invalid timerIndex:" << timerIndex;
+        }
+    }
+}
+
+/**
+ * @brief Handles the wheel event for the widget to
+ * resize the font sizes.
+ * @param event The wheel event object.
+ */
+void SportTimer::wheelEvent(QWheelEvent *event)
+{
+    if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
+        int delta = event->angleDelta().y();
+        int fontSizeIncrement = 1;
+        QFont font = this->font();
+        int newPointSize = font.pointSize() + (delta > 0 ? fontSizeIncrement : -fontSizeIncrement);
+        if (newPointSize > 0) {
+            font.setPointSize(newPointSize);
+            this->setFont(font);
+
+            QString existingStyleSheet = this->styleSheet();
+
+            // Combine existing stylesheet with new font-size rule
+            QString newStyleSheet = existingStyleSheet + QString("\n* { font-size: %1pt; }").arg(newPointSize);
+            this->setStyleSheet(newStyleSheet);
+        }
+    } else {
+        QWidget::wheelEvent(event);
+    }
+}
+
+SportTimer::~SportTimer()
+{
+    QSqlDatabase db = QSqlDatabase::database();
+    db.close();
+    delete ui;
 }
