@@ -1,6 +1,5 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO fix memory leak from qss reload in wheelEvent function
 //TODO fix timer display bug
 //TODO fix timer load bugs
 SportTimer::SportTimer(QWidget *parent)
@@ -31,9 +30,8 @@ void SportTimer::setup(){
     ui->secondsSpinBox->setMaximum(59);
 
     QFile file2(":/Adaptic.qss");
-
     if (file2.open(QIODevice::ReadOnly)) {
-        QString stylesheet = QTextStream(&file2).readAll();
+        stylesheet = QTextStream(&file2).readAll();
         setStyleSheet(stylesheet);
         file2.close();
     } else {
@@ -205,6 +203,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
  */
 void SportTimer::wheelEvent(QWheelEvent *event)
 {
+    qDebug() << "this->styleSheet().size() " << this->styleSheet().size();
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
         int delta = event->angleDelta().y();
         int fontSizeIncrement = 1;
@@ -213,11 +212,8 @@ void SportTimer::wheelEvent(QWheelEvent *event)
         if (newPointSize > 0) {
             font.setPointSize(newPointSize);
             this->setFont(font);
-
-            QString existingStyleSheet = this->styleSheet();
-
-            // Combine existing stylesheet with new font-size rule
-            QString newStyleSheet = existingStyleSheet + QString("\n* { font-size: %1pt; }").arg(newPointSize);
+            // Combine stylesheet with new font-size rule
+            QString newStyleSheet = stylesheet + QString("\n* { font-size: %1pt; }").arg(newPointSize);
             this->setStyleSheet(newStyleSheet);
         }
     } else {

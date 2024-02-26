@@ -39,6 +39,7 @@ private slots:
 
 private:
     Ui::SportTimer *ui = {};
+    QString stylesheet;
     QMap<int, QPair<int, QString>> durationWithExercise = {};
     QList<QBasicTimer*> timers = {};
     QRegularExpression fontSizeRegex();
