@@ -123,9 +123,10 @@ void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int,
     }
 
     QSqlQuery query(db);
-    query.prepare("INSERT INTO presets (name, duration, training_name) VALUES (:name, :id, :duration, :training_name)");
+    query.prepare("INSERT INTO presets (id, training_name, duration, exercise_name) VALUES (:id, :training_name, :duration, :exercise_name)");
     QMap<int, QPair<int, QString>>::const_iterator it;
     for (it = durationWithExercise.constBegin(); it != durationWithExercise.constEnd(); ++it) {
+        query.bindValue(":id", it.key());
         query.bindValue(":training_name", presetName);
         query.bindValue(":duration", it.value().first);
         query.bindValue(":exercise_name", it.value().second);
@@ -154,7 +155,7 @@ void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int,
 void SportTimer::loadPresetsFromDatabase()
 {
     QSqlQuery query;
-    if (!query.exec("SELECT name FROM presets")) {
+    if (!query.exec("SELECT id, training_name FROM presets")) {
         qDebug() << "Error fetching presets:" << query.lastError().text();
         return;
     }
@@ -165,18 +166,22 @@ void SportTimer::loadPresetsFromDatabase()
         int presetId = query.value(0).toInt();
         QString presetName = query.value(1).toString();
 
+        // Check if the preset is already loaded in the combo box
         bool isLoaded = false;
         for (int i = 0; i < ui->presetsComboBox->count(); ++i) {
-            if (ui->presetsComboBox->itemText(i) == presetName) {
+            if (ui->presetsComboBox->itemData(i).toInt() == presetId) {
                 isLoaded = true;
                 break;
             }
         }
+
+        // If the preset is not already loaded, add it to the combo box
         if (!isLoaded) {
             ui->presetsComboBox->addItem(presetName, presetId);
         }
     }
 }
+
 
 /**
  * @brief Loads the timers associated with a selected preset from the combo
@@ -203,37 +208,35 @@ void SportTimer::loadSelectedPreset()
 void SportTimer::loadPresetTimersByName(QString trainingName)
 {
     QSqlQuery query;
-    query.prepare("SELECT duration FROM presets WHERE id = :id");
+    query.prepare("SELECT id, duration, exercise_name FROM presets WHERE training_name = :training_name");
     query.bindValue(":training_name", trainingName);
     if (!query.exec()) {
         qDebug() << "Error fetching preset timers:" << query.lastError().text();
         return;
     }
-    int count = {};
-    //durations.clear();
-    //timers.clear();
-    //TODO fix loading of timers from db !!!
+
+    //durationWithExercise.clear(); // Clear the map before loading new data
+
+    int count = 0; // Initialize count to zero
     while (query.next()) {
-        count +=1;
-        QString exerciseName = query.value(2).toString();
+        count += 1;
         int duration = query.value(1).toInt();
-        durationWithExercise.insert(count, {duration, exerciseName});
+        QString exerciseName = query.value(2).toString();
+        durationWithExercise.insert(count, qMakePair(duration, exerciseName));
+
         int minutes = duration / 60000;
         int seconds = (duration % 60000) / 1000;
-        QString timerText = QString::number(minutes).rightJustified(2, '0') + ":"
-                            + QString::number(seconds).rightJustified(2, '0');
-        ui->timerListWidget->addItem("Timer " + QString::number(durationWithExercise.size()) +
-                                     " " + trainingName + " "
-                                     + ": " + timerText);
+        QString timerText = QString::number(minutes).rightJustified(2, '0') + ":" +
+                            QString::number(seconds).rightJustified(2, '0');
 
+        ui->timerListWidget->addItem("Timer " + QString::number(count) + " " + exerciseName + ": " + timerText);
         timers.append(new QBasicTimer());
         qDebug() << "Counter " << count;
     }
-    //updateTimerListView();
 
     qDebug() << "Durations from database:" << durationWithExercise; // Debug message to check durations list
-
 }
+
 
 void SportTimer::pauseTimers()
 {
@@ -254,10 +257,11 @@ void SportTimer::initializeDatabase()
 
     QSqlQuery query;
     QString createTableQuery = "CREATE TABLE IF NOT EXISTS presets ("
+                               "id INTEGER, "
                                "training_name TEXT, "
                                "duration INTEGER, "
                                "exercise_name TEXT, "
-                               "PRIMARY KEY (training_name)"
+                               "PRIMARY KEY (id, training_name)"
                                ");";
     if (!query.exec(createTableQuery)) {
         qDebug() << "Error creating table:" << query.lastError().text();
