@@ -97,7 +97,7 @@ void SportTimer::loadPresetTimersByName(QString trainingName)
         QString timerText = QString::number(minutes).rightJustified(2, '0') + ":" +
                             QString::number(seconds).rightJustified(2, '0');
 
-        ui->timerListWidget->addItem("Timer " + QString::number(count) + " " + exerciseName + ": " + timerText);
+        ui->timerListWidget->addItem(QString::number(count) + ". " + exerciseName + ": " + timerText);
         timers.append(new QBasicTimer());
     }
 }

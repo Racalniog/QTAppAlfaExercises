@@ -1,6 +1,7 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
 //TODO fix memory leak from qss reload in wheelEvent function
+//TODO fix timer display bug
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -102,8 +103,8 @@ void SportTimer::addTimerConnect()
 
     QString timerText = QString::number(minutes).rightJustified(2, '0')
                         + ":" + QString::number(seconds).rightJustified(2, '0');
-    ui->timerListWidget->addItem("Timer " + QString::number(durationWithExercise.size()) +
-                                 " " + exerciseName + " "
+    ui->timerListWidget->addItem(QString::number(durationWithExercise.size()) +
+                                 ". " + exerciseName + " "
                                  + ": " + timerText);
 
     timers.append(new QBasicTimer());
@@ -139,8 +140,8 @@ void SportTimer::updateTimerText(int index)
                         + ":" + QString::number(seconds).rightJustified(2, '0');
 
     QListWidgetItem *item = ui->timerListWidget->item(index);
-    item->setText("Timer " + QString::number(durationWithExercise.keys().at(index)) +
-                  " " + durationWithExercise.value(index).second + " "
+    item->setText(QString::number(durationWithExercise.keys().at(index)) +
+                  ". " + durationWithExercise.value(index).second + " "
                   + ": " + timerText);
     if (remainingTime <= 5000) {
         if (remainingTime % 1000 == 0) {
