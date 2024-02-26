@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     initNumberSystem();
     initColorMixer();
     initList();
+    ui->stackedWidget->setCurrentWidget(ui->page_9);
     setWindowTitle("Multi Purpose Application");
     QFile file(":/Adaptic.qss");
 
@@ -146,6 +147,7 @@ void MainWindow::initQStackedWidget()
     connect(ui->actionWindow_6, &QAction::triggered, this, &MainWindow::updateWindowTitle);
     connect(ui->actionWindow_7, &QAction::triggered, this, &MainWindow::updateWindowTitle);
     connect(ui->actionWindow_8, &QAction::triggered, this, &MainWindow::updateWindowTitle);
+    connect(ui->actionWindow_9, &QAction::triggered, this, &MainWindow::updateWindowTitle);
 
     ui->stackedWidget->setCurrentIndex(0);
     connect(ui->actionWindow_1, &QAction::triggered, this, &MainWindow::actionWindow_1_clicked);

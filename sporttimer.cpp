@@ -2,6 +2,7 @@
 #include "ui_sporttimer.h"
 //TODO fix memory leak from qss reload in wheelEvent function
 //TODO fix timer display bug
+//TODO fix timer load bugs
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
