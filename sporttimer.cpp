@@ -68,7 +68,7 @@ void SportTimer::removeSelectedTimers() {
         delete item;
 
         if (index >= 0 && index < durationWithExercise.size()) {
-            durationWithExercise.remove(index);
+            durationWithExercise.remove(durationWithExercise.keys().at(index));
             timers.remove(index);
         }
     }
@@ -163,35 +163,37 @@ void SportTimer::updateTimerText(int index)
  */
 void SportTimer::timerEvent(QTimerEvent *event)
 {
-    if (event->timerId() == timers[timerIndex]->timerId()) {
-        // Check if timerIndex is valid
-        if (timerIndex >= 0 && 0 < timers.size()) {
-            int currentDuration = durationWithExercise.first().first;
+    if( timers.size()>0){
+        if (event->timerId() == timers[timerIndex]->timerId()) {
+            // Check if timerIndex is valid
+            if (timerIndex >= 0 && 0 < timers.size()) {
+                int currentDuration = durationWithExercise.first().first;
 
-            // Update the current duration
-            currentDuration -= 1000;
+                // Update the current duration
+                currentDuration -= 1000;
 
-            if (currentDuration <= 0) {
-                // Stop and remove the timer
-                timers[timerIndex]->stop();
-                delete timers[timerIndex];
-                timers.removeAt(timerIndex);
-                delete ui->timerListWidget->takeItem(timerIndex);
+                if (currentDuration <= 0) {
+                    // Stop and remove the timer
+                    timers[timerIndex]->stop();
+                    delete timers[timerIndex];
+                    timers.removeAt(timerIndex);
+                    delete ui->timerListWidget->takeItem(timerIndex);
 
-                // Remove the duration and exercise entry
-                durationWithExercise.remove(durationWithExercise.keys().first());
+                    // Remove the duration and exercise entry
+                    durationWithExercise.remove(durationWithExercise.keys().first());
 
-                // Start the next timer if available
-                if (timerIndex < timers.size()) {
-                    timers[timerIndex]->start(1000, this);
+                    // Start the next timer if available
+                    if (timerIndex < timers.size()) {
+                        timers[timerIndex]->start(1000, this);
+                    }
+                } else {
+                    // Update the duration in the map
+                    durationWithExercise.first().first = currentDuration;
+                    updateTimerText(timerIndex);
                 }
             } else {
-                // Update the duration in the map
-                durationWithExercise.first().first = currentDuration;
-                updateTimerText(timerIndex);
+                qDebug() << "Invalid timerIndex:" << timerIndex;
             }
-        } else {
-            qDebug() << "Invalid timerIndex:" << timerIndex;
         }
     }
 }
