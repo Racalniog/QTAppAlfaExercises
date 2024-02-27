@@ -1,7 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO fix timer display bug
-//TODO fix timer load bugs
+
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -132,15 +131,16 @@ void SportTimer::startTimers()
  */
 void SportTimer::updateTimerText(int index)
 {
-    int remainingTime = durationWithExercise.value(index).first;
+
+    int remainingTime = durationWithExercise.first().first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
     QString timerText = QString::number(minutes).rightJustified(2, '0')
                         + ":" + QString::number(seconds).rightJustified(2, '0');
 
-    QListWidgetItem *item = ui->timerListWidget->item(index);
-    item->setText(QString::number(durationWithExercise.keys().at(index)) +
-                  ". " + durationWithExercise.value(index).second + " "
+    QListWidgetItem *item = ui->timerListWidget->item(0);
+    item->setText(QString::number(durationWithExercise.keys().first()) +
+                  ". " + durationWithExercise.first().second + " "
                   + ": " + timerText);
     if (remainingTime <= 5000) {
         if (remainingTime % 1000 == 0) {
@@ -179,7 +179,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
                 delete ui->timerListWidget->takeItem(timerIndex);
 
                 // Remove the duration and exercise entry
-                durationWithExercise.remove(timerIndex);
+                durationWithExercise.remove(durationWithExercise.keys().first());
 
                 // Start the next timer if available
                 if (timerIndex < timers.size()) {
@@ -187,7 +187,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
                 }
             } else {
                 // Update the duration in the map
-                durationWithExercise[timerIndex].first = currentDuration;
+                durationWithExercise.first().first = currentDuration;
                 updateTimerText(timerIndex);
             }
         } else {

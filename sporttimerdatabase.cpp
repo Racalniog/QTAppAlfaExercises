@@ -40,16 +40,13 @@ void SportTimer::loadPresetsFromDatabase()
 
     ui->presetsComboBox->clear();
 
-    QMap<int, QString> loadedPresets;
-
     while (query.next()) {
         int presetId = query.value(0).toInt();
         QString presetName = query.value(1).toString();
 
         // Check if the preset (both ID and name) is already loaded in the combo box
-        if (!loadedPresets.contains(presetId) && !loadedPresets.values().contains(presetName)) {
+        if (ui->presetsComboBox->findText(presetName) == -1) {
             ui->presetsComboBox->addItem(presetName, presetId);
-            loadedPresets.insert(presetId, presetName);
         }
     }
 }
