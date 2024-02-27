@@ -1,6 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO fix timer display numeration while adding new timers during runtime of timers
+//TODO add volume controls
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -38,6 +38,9 @@ void SportTimer::setup(){
         qDebug() << "File path: " << file2.fileName();
         qDebug() << "Error string: " << file2.errorString();
     }
+
+    soundEffect.setSource(QUrl::fromLocalFile(":/mixkit-arcade-bonus-alert-767.wav"));
+    soundEffect.setVolume(0.25); // Set volume (0.0 to 1.0)
 }
 
 /**
@@ -145,8 +148,10 @@ void SportTimer::updateTimerText()
         if (remainingTime % 1000 == 0) {
             if (item->foreground() == Qt::red)
                 item->setForeground(Qt::black);
-            else
+            else{
+                soundEffect.play();
                 item->setForeground(Qt::red);
+            }
         }
     } else {
         item->setForeground(Qt::black);

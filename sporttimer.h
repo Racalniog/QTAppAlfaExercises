@@ -10,6 +10,7 @@
 #include <QSqlError>
 #include <QFile>
 #include <QOverload>
+#include <QtMultimedia>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SportTimer; }
@@ -43,6 +44,7 @@ private:
     QMap<int, QPair<int, QString>> durationWithExercise = {};
     QList<QBasicTimer*> timers = {};
     QRegularExpression fontSizeRegex();
+    QSoundEffect soundEffect;
     int timerIndex = {};
 
     void loadPresetTimersFromDatabase();

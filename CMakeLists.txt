@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets
     Network Xml Sql)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml Sql Multimedia)
 
 qt_standard_project_setup()
 
@@ -34,6 +34,7 @@ target_link_libraries(QTAlfaExercises PRIVATE
     Qt::Network
     Qt::Xml
     Qt::Sql
+    Qt::Multimedia
 )
 
 install(TARGETS QTAlfaExercises
