@@ -1,6 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-
+//TODO fix timer display numeration while adding new timers during runtime of timers
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -118,7 +118,7 @@ void SportTimer::startTimers()
             qDebug() << "Starting timer" << i;
             timers[i]->start(1000, this);
             timerIndex = i;
-            updateTimerText(i);
+            updateTimerText();
             break;
         }
     }
@@ -129,9 +129,8 @@ void SportTimer::startTimers()
  *
  * @param index The index of the timer in the durations list.
  */
-void SportTimer::updateTimerText(int index)
+void SportTimer::updateTimerText()
 {
-
     int remainingTime = durationWithExercise.first().first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
@@ -139,7 +138,7 @@ void SportTimer::updateTimerText(int index)
                         + ":" + QString::number(seconds).rightJustified(2, '0');
 
     QListWidgetItem *item = ui->timerListWidget->item(0);
-    item->setText(QString::number(durationWithExercise.keys().first()) +
+    item->setText(QString::number(durationWithExercise.keys().first()+1) +
                   ". " + durationWithExercise.first().second + " "
                   + ": " + timerText);
     if (remainingTime <= 5000) {
@@ -189,7 +188,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
                 } else {
                     // Update the duration in the map
                     durationWithExercise.first().first = currentDuration;
-                    updateTimerText(timerIndex);
+                    updateTimerText();
                 }
             } else {
                 qDebug() << "Invalid timerIndex:" << timerIndex;

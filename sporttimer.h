@@ -46,7 +46,7 @@ private:
     int timerIndex = {};
 
     void loadPresetTimersFromDatabase();
-    void updateTimerText(int index);
+    void updateTimerText();
     void updateTimerListView();
     void savePresetToDatabase(const QString &presetName, const QMap<int, QPair<int, QString>> durationWithExercise);
     void loadPresetsFromDatabase();
