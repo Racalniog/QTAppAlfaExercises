@@ -31,7 +31,7 @@ void SportTimer::setup(){
     QFile file2(":/Adaptic.qss");
     if (file2.open(QIODevice::ReadOnly)) {
         stylesheet = QTextStream(&file2).readAll();
-        setStyleSheet(stylesheet);
+        setStyleSheet(stylesheet + QString("\n* { font-size: %1pt; }").arg(16));
         file2.close();
     } else {
         qDebug() << "Error: Could not open stylesheet file";
@@ -40,7 +40,7 @@ void SportTimer::setup(){
     }
 
     soundEffect.setSource(QUrl::fromLocalFile(":/mixkit-arcade-bonus-alert-767.wav"));
-    soundEffect.setVolume(0.25); // Set volume (0.0 to 1.0)
+    soundEffect.setVolume(0.25);
 }
 
 /**
@@ -114,11 +114,7 @@ void SportTimer::addTimerConnect()
 void SportTimer::startTimers()
 {
     for (int i = 0; i < durationWithExercise.size(); ++i) {
-        qDebug() << "Starting timer" << i;
-        qDebug() << "timers.size()" << timers.size();
         if (i < timers.size() && !timers[i]->isActive()) {
-            qDebug() << "timers[i]->isActive()" << timers[i]->isActive();
-            qDebug() << "Starting timer" << i;
             timers[i]->start(1000, this);
             timerIndex = i;
             updateTimerText();
@@ -173,7 +169,6 @@ void SportTimer::timerEvent(QTimerEvent *event)
             if (timerIndex >= 0 && 0 < timers.size()) {
                 int currentDuration = durationWithExercise.first().first;
 
-                // Update the current duration
                 currentDuration -= 1000;
 
                 if (currentDuration <= 0) {
@@ -183,7 +178,6 @@ void SportTimer::timerEvent(QTimerEvent *event)
                     timers.removeAt(timerIndex);
                     delete ui->timerListWidget->takeItem(timerIndex);
 
-                    // Remove the duration and exercise entry
                     durationWithExercise.remove(durationWithExercise.keys().first());
 
                     // Start the next timer if available
@@ -191,7 +185,6 @@ void SportTimer::timerEvent(QTimerEvent *event)
                         timers[timerIndex]->start(1000, this);
                     }
                 } else {
-                    // Update the duration in the map
                     durationWithExercise.first().first = currentDuration;
                     updateTimerText();
                 }
@@ -209,7 +202,6 @@ void SportTimer::timerEvent(QTimerEvent *event)
  */
 void SportTimer::wheelEvent(QWheelEvent *event)
 {
-    qDebug() << "this->styleSheet().size() " << this->styleSheet().size();
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
         int delta = event->angleDelta().y();
         int fontSizeIncrement = 1;

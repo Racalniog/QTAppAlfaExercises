@@ -6,7 +6,6 @@ ComboBoxFont::ComboBoxFont(QWidget *parent)
     , ui(new Ui::ComboBoxFont)
 {
     ui->setupUi(this);
-    ui->frame->setStyleSheet("background-color: #ADD8E6;");
     QStringList fontStyles = {"Normal", "Bold", "Italic"};
     QStringList fontSizes = {"8", "10", "12", "14", "16"};
     QStringList fontColors = {"Black", "Red", "Blue"};
