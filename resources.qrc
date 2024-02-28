@@ -5,5 +5,8 @@
         <file>Medize.qss</file>
         <file>WordOffice.qss</file>
         <file>mixkit-arcade-bonus-alert-767.wav</file>
+        <file>stick-man-dancing-svgrepo-com.svg</file>
+        <file>stick-man-excercising-svgrepo-com.svg</file>
+        <file>stick-man-running-svgrepo-com.svg</file>
     </qresource>
 </RCC>

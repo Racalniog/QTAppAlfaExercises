@@ -27,6 +27,8 @@ public:
 protected:
     void timerEvent(QTimerEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
     void addTimerConnect();
@@ -46,6 +48,10 @@ private:
     QList<QBasicTimer*> timers = {};
     QRegularExpression fontSizeRegex();
     QSoundEffect soundEffect;
+    bool firstPicture = false;
+    bool secondPicture = false;
+    bool thirdPicture = false;
+    bool stopPainting = false;
     int timerIndex = {};
 
     void loadPresetTimersFromDatabase();
@@ -56,6 +62,7 @@ private:
     void initializeDatabase();
     void setup();
     void loadPresetTimersByName(QString trainingName);
+    void animate();
 };
 
 #endif // SPORTTIMER_H

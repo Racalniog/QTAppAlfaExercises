@@ -1,6 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO add volume controls, delete presets from db, add animations
+//TODO add volume controls, add animations, multiplatform support
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -42,6 +42,50 @@ void SportTimer::setup(){
 
     soundEffect.setSource(QUrl::fromLocalFile(":/mixkit-arcade-bonus-alert-767.wav"));
     soundEffect.setVolume(0.25);
+    this->setMinimumHeight(600);
+}
+
+void SportTimer::resizeEvent(QResizeEvent *event) {
+    Q_UNUSED(event);
+    stopPainting = true;
+}
+
+void SportTimer::paintEvent(QPaintEvent *event){
+    Q_UNUSED(event);
+    QPainter painter(this);
+    int middleX = ui->timerListWidget->width();
+    int middleY = painter.device()->height() - ui->timerListWidget->height();
+    if(!timers.empty() && !stopPainting){
+        if(timers.first()->isActive()){
+            if(!firstPicture && !secondPicture){
+                painter.drawPixmap(middleX, middleY,
+                                   QPixmap(":/stick-man-dancing-svgrepo-com.svg").
+                                   scaled(ui->timerListWidget->width(), ui->timerListWidget->height()));
+                firstPicture = true;
+                secondPicture = false;
+                thirdPicture = false;
+            }else if(firstPicture && !secondPicture){
+                painter.drawPixmap(middleX, middleY,
+                                   QPixmap(":/stick-man-excercising-svgrepo-com.svg").
+                                   scaled(ui->timerListWidget->width(), ui->timerListWidget->height()));
+                firstPicture = false;
+                secondPicture = true;
+                thirdPicture = false;
+            }else{
+                painter.drawPixmap(middleX, middleY,
+                                   QPixmap(":/stick-man-running-svgrepo-com.svg").
+                                   scaled(ui->timerListWidget->width(), ui->timerListWidget->height()));
+                firstPicture = false;
+                secondPicture = false;
+                thirdPicture = true;
+            }
+        }
+    }
+    stopPainting = false;
+}
+
+void SportTimer::animate(){
+    update();
 }
 
 /**
@@ -131,6 +175,7 @@ void SportTimer::startTimers()
  */
 void SportTimer::updateTimerText()
 {
+    animate();
     int remainingTime = durationWithExercise.first().first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
@@ -204,6 +249,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
 void SportTimer::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier) { // Check if Ctrl key is pressed
+        stopPainting = true;
         int delta = event->angleDelta().y();
         int fontSizeIncrement = 1;
         QFont font = this->font();
