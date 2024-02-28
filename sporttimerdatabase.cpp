@@ -5,25 +5,25 @@
 
 void SportTimer::initializeDatabase()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "sportTimerConnection");
     db.setDatabaseName("presets.db");
 
     if (!db.open()) {
         qDebug() << "Error: Unable to open database:" << db.lastError().text();
         return;
-    }
-
-    QSqlQuery query;
-    QString createTableQuery = "CREATE TABLE IF NOT EXISTS presets ("
-                               "id INTEGER, "
-                               "training_name TEXT, "
-                               "duration INTEGER, "
-                               "exercise_name TEXT, "
-                               "PRIMARY KEY (id, training_name)"
-                               ");";
-    if (!query.exec(createTableQuery)) {
-        qDebug() << "Error creating table:" << query.lastError().text();
-        return;
+    }else{
+        QSqlQuery query(db);
+        QString createTableQuery = "CREATE TABLE IF NOT EXISTS presets ("
+                                   "id INTEGER, "
+                                   "training_name TEXT, "
+                                   "duration INTEGER, "
+                                   "exercise_name TEXT, "
+                                   "PRIMARY KEY (id, training_name)"
+                                   ");";
+        if (!query.exec(createTableQuery)) {
+            qDebug() << "Error creating table:" << query.lastError().text();
+            return;
+        }
     }
 }
 
@@ -31,7 +31,8 @@ void SportTimer::deletePreset()
 {
     QString presetName = ui->deletePresetComboBox->currentText();
     if (!presetName.isEmpty()) {
-        QSqlQuery query;
+        QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
+        QSqlQuery query(db);
         query.prepare("DELETE FROM presets WHERE training_name = :name");
         query.bindValue(":name", presetName);
         if (!query.exec()) {
@@ -46,7 +47,8 @@ void SportTimer::deletePreset()
  */
 void SportTimer::loadPresetsFromDatabase()
 {
-    QSqlQuery query;
+    QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
+    QSqlQuery query(db);
     if (!query.exec("SELECT id, training_name FROM presets")) {
         qDebug() << "Error fetching presets:" << query.lastError().text();
         return;
@@ -90,7 +92,8 @@ void SportTimer::loadSelectedPreset()
  */
 void SportTimer::loadPresetTimersByName(QString trainingName)
 {
-    QSqlQuery query;
+    QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
+    QSqlQuery query(db);
     query.prepare("SELECT id, duration, exercise_name FROM presets WHERE training_name = :training_name");
     query.bindValue(":training_name", trainingName);
     if (!query.exec()) {
@@ -143,7 +146,7 @@ void SportTimer::savePresetTimers()
  * element to the database.
  */
 void SportTimer::savePresetToDatabase(const QString& presetName, const QMap<int, QPair<int, QString>> durationWithExercise) {
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
     if (!db.isValid()) {
         qDebug() << "Database connection is invalid.";
         return;
@@ -191,8 +194,9 @@ void SportTimer::onPresetNameChanged(const QString& text) {
     // Check if the user has pressed Enter or Return
     if (text.endsWith("\n")) {
         QString presetName = text.trimmed();
+        QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
 
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("SELECT id FROM presets WHERE name = :name");
         query.bindValue(":name", presetName);
         if (query.exec() && query.next()) {

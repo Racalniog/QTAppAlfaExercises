@@ -11,13 +11,12 @@ RSSReader::RSSReader(QWidget *parent)
     connect(ui->removeFeedButton, &QPushButton::clicked, this, &RSSReader::removeFeed);
     ui->feedListWidget->addItem("https://www.spiegel.de/schlagzeilen/rss/0,5291,,00.xml");
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "rssReaderConnection");
     db.setDatabaseName("feeds.db");
     if (!db.open()) {
         qDebug() << "Error: Failed to open database:" << db.lastError().text();
     } else {
-        qDebug() << "Database opened successfully";
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.exec("CREATE TABLE IF NOT EXISTS feeds (url TEXT PRIMARY KEY)");
 
         loadFeedsFromDatabase();
@@ -31,8 +30,8 @@ void RSSReader::removeFeed()
         QString feedUrl = selectedItem->text();
         int row = ui->feedListWidget->currentRow();
         delete ui->feedListWidget->takeItem(row);
-
-        QSqlQuery query;
+        QSqlDatabase db = QSqlDatabase::database("rssReaderConnection");
+        QSqlQuery query(db);
         query.prepare("DELETE FROM feeds WHERE url = (:url)");
         query.bindValue(":url", feedUrl);
         if (!query.exec()) {
@@ -43,7 +42,8 @@ void RSSReader::removeFeed()
 
 void RSSReader::loadFeedsFromDatabase()
 {
-    QSqlQuery query("SELECT url FROM feeds");
+    QSqlDatabase db = QSqlDatabase::database("rssReaderConnection");
+    QSqlQuery query("SELECT url FROM feeds", db);
     while (query.next()) {
         QString feedUrl = query.value(0).toString();
         QListWidgetItem *item = new QListWidgetItem(feedUrl);
@@ -66,7 +66,8 @@ void RSSReader::addFeed()
         if (checkQuery.exec() && checkQuery.next()) {
             qDebug() << "Feed URL already exists in the database";
         } else {
-            QSqlQuery query;
+            QSqlDatabase db = QSqlDatabase::database("rssReaderConnection");
+            QSqlQuery query(db);
             query.prepare("INSERT INTO feeds (url) VALUES (:url)");
             query.bindValue(":url", feedUrl);
             if (!query.exec()) {
