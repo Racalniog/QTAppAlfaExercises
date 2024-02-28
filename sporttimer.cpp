@@ -1,6 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO add volume controls
+//TODO add volume controls, delete presets from db, add animations
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -22,6 +22,7 @@ void SportTimer::setup(){
     connect(ui->presetSaveLineEdit, &QLineEdit::textChanged, this, &SportTimer::onPresetNameChanged);
     connect(ui->removeTimersButton, &QPushButton::clicked, this, &SportTimer::removeTimers);
     connect(ui->removeSelectedTimerButton, &QPushButton::clicked, this, &SportTimer::removeSelectedTimers);
+    connect(ui->deletePresetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &SportTimer::deletePreset);
 
     ui->minutesSpinBox->setMinimum(0);
     ui->minutesSpinBox->setMaximum(59);

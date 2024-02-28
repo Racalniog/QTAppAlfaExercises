@@ -27,6 +27,20 @@ void SportTimer::initializeDatabase()
     }
 }
 
+void SportTimer::deletePreset()
+{
+    QString presetName = ui->deletePresetComboBox->currentText();
+    if (!presetName.isEmpty()) {
+        QSqlQuery query;
+        query.prepare("DELETE FROM presets WHERE training_name = :name");
+        query.bindValue(":name", presetName);
+        if (!query.exec()) {
+            qDebug() << "Error deleting preset:" << query.lastError().text();
+        }
+    }
+    loadPresetsFromDatabase();
+}
+
 /**
  * @brief Loads presets from the database and populates the presets combo box.
  */
@@ -39,14 +53,16 @@ void SportTimer::loadPresetsFromDatabase()
     }
 
     ui->presetsComboBox->clear();
+    ui->deletePresetComboBox->clear();
 
     while (query.next()) {
         int presetId = query.value(0).toInt();
         QString presetName = query.value(1).toString();
 
         // Check if the preset (both ID and name) is already loaded in the combo box
-        if (ui->presetsComboBox->findText(presetName) == -1) {
+        if (ui->presetsComboBox->findText(presetName) == -1 && ui->deletePresetComboBox->findText(presetName) == -1) {
             ui->presetsComboBox->addItem(presetName, presetId);
+            ui->deletePresetComboBox->addItem(presetName, presetId);
         }
     }
 }
