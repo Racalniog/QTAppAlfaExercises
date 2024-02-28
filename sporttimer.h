@@ -37,6 +37,7 @@ private slots:
     void onPresetNameChanged(const QString& text);
     void removeSelectedTimers();
     void removeTimers();
+    void deletePreset();
 
 private:
     Ui::SportTimer *ui = {};

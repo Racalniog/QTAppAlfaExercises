@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>750</height>
+    <width>778</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,12 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QPushButton" name="addTimerButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Add Timer</string>
      </property>
@@ -36,6 +42,12 @@
    </item>
    <item row="3" column="0">
     <widget class="QPushButton" name="savePresetButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Save Preset</string>
      </property>
@@ -44,7 +56,7 @@
    <item row="5" column="0">
     <widget class="QLineEdit" name="presetSaveLineEdit">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -54,11 +66,14 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="0" colspan="2">
-    <widget class="QListWidget" name="timerListWidget"/>
-   </item>
    <item row="2" column="0">
     <widget class="QSpinBox" name="secondsSpinBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="suffix">
       <string> seconds</string>
      </property>
@@ -66,6 +81,12 @@
    </item>
    <item row="2" column="1">
     <widget class="QSpinBox" name="minutesSpinBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="suffix">
       <string> minutes</string>
      </property>
@@ -73,6 +94,18 @@
    </item>
    <item row="6" column="0">
     <widget class="QPushButton" name="startButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="text">
       <string>Start Training</string>
      </property>
@@ -86,6 +119,12 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
@@ -96,6 +135,12 @@
    </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="removeSelectedTimerButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Remove Selected Timer</string>
      </property>
@@ -119,8 +164,37 @@
    </item>
    <item row="1" column="1">
     <widget class="QPushButton" name="removeTimersButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Remove All Timers</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QComboBox" name="deletePresetComboBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="placeholderText">
+      <string>Delete Selected Preset</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="2">
+    <widget class="QListWidget" name="timerListWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>

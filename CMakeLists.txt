@@ -48,3 +48,6 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+# cmake --install . in the build folder installs the app into
+# C:\Program Files (x86)\QTAlfaExercises\bin
