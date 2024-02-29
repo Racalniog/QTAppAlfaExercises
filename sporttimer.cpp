@@ -1,6 +1,9 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
-//TODO add volume controls, add animations, multiplatform support
+//TODO multiplatform support
+//TODO fix crash when the head of running timers is
+//removed and started again and the end of the first list is reached
+
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SportTimer)
@@ -23,6 +26,7 @@ void SportTimer::setup(){
     connect(ui->removeTimersButton, &QPushButton::clicked, this, &SportTimer::removeTimers);
     connect(ui->removeSelectedTimerButton, &QPushButton::clicked, this, &SportTimer::removeSelectedTimers);
     connect(ui->deletePresetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &SportTimer::deletePreset);
+    connect(ui->volumeHorizontalSlider, &QSlider::valueChanged, this, &SportTimer::adjustVolume);
 
     ui->minutesSpinBox->setMinimum(0);
     ui->minutesSpinBox->setMaximum(59);
@@ -41,8 +45,14 @@ void SportTimer::setup(){
     }
 
     soundEffect.setSource(QUrl::fromLocalFile(":/mixkit-arcade-bonus-alert-767.wav"));
-    soundEffect.setVolume(0.25);
+    soundEffect.setVolume(0.1);
+    ui->volumeHorizontalSlider->setValue(10);
     this->setMinimumHeight(600);
+}
+
+void SportTimer::adjustVolume(int value) {
+    qreal volume = qreal(value) / qreal(ui->volumeHorizontalSlider->maximum());
+    soundEffect.setVolume(volume);
 }
 
 void SportTimer::resizeEvent(QResizeEvent *event) {

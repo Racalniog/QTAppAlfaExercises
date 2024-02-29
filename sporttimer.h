@@ -40,6 +40,7 @@ private slots:
     void removeSelectedTimers();
     void removeTimers();
     void deletePreset();
+    void adjustVolume(int value);
 
 private:
     Ui::SportTimer *ui = {};
