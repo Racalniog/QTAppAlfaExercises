@@ -191,8 +191,10 @@ void SportTimer::startTimers()
 
 void SportTimer::updateAllTimerText()
 {
+    QList<QPair<int, QString>> durations = durationWithExercise.values(); // Store the values in a separate variable
+
     for (int i = 0; i < ui->timerListWidget->count(); ++i) {
-        int remainingTime = durationWithExercise.values().at(i).first;
+        int remainingTime = durations.at(i).first;
         int minutes = remainingTime / 60000;
         int seconds = (remainingTime % 60000) / 1000;
         QString timerText = QString::number(minutes).rightJustified(2, '0')
@@ -200,7 +202,7 @@ void SportTimer::updateAllTimerText()
 
         QListWidgetItem *item = ui->timerListWidget->item(i);
         item->setText(QString::number(i + 1) +
-                      ". " + durationWithExercise.values().at(i).second + " "
+                      ". " + durations.at(i).second + " " // Use the stored variable here
                       + ": " + timerText);
     }
 }

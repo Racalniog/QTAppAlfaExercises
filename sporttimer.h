@@ -47,7 +47,6 @@ private:
     QString stylesheet;
     QMap<int, QPair<int, QString>> durationWithExercise = {};
     QList<QBasicTimer*> timers = {};
-    QRegularExpression fontSizeRegex();
     QSoundEffect soundEffect;
     bool firstPicture = false;
     bool secondPicture = false;
