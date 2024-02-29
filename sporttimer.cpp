@@ -222,8 +222,8 @@ void SportTimer::updateTimerText()
     item->setText(QString::number(durationWithExercise.firstKey()) +
                   ". " + durationWithExercise.first().second + " "
                   + ": " + timerText);
+    animate();
     if (remainingTime <= 5000 && timers.first()->isActive()) {
-        animate();
         if (remainingTime % 1000 == 0) {
             if (item->foreground() == Qt::red)
                 item->setForeground(Qt::black);
