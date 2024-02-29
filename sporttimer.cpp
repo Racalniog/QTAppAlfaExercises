@@ -1,8 +1,6 @@
 #include "sporttimer.h"
 #include "ui_sporttimer.h"
 //TODO multiplatform support
-//TODO fix crash when the head of running timers is
-//removed and started again and the end of the first list is reached
 
 SportTimer::SportTimer(QWidget *parent)
     : QWidget(parent)
@@ -115,6 +113,16 @@ void SportTimer::removeTimers()
     ui->timerListWidget->clear();
 }
 
+void SportTimer::updateDurationWitExercise(){
+    QMap<int, QPair<int, QString>> updatedDurationWithExercise;
+    int newIndex = {};
+    for (auto it = durationWithExercise.begin(); it != durationWithExercise.end(); ++it) {
+        updatedDurationWithExercise.insert(newIndex + 1, it.value());
+        ++newIndex;
+    }
+    durationWithExercise = updatedDurationWithExercise;
+}
+
 /**
  * @brief Removes selected timer from the list widget and durations list.
  */
@@ -129,7 +137,9 @@ void SportTimer::removeSelectedTimers() {
             durationWithExercise.remove(durationWithExercise.keys().at(index));
             timers.remove(index);
         }
+        updateDurationWitExercise();
     }
+    updateAllTimerText();
 }
 
 void SportTimer::pauseTimers()
@@ -155,7 +165,7 @@ void SportTimer::addTimerConnect()
     int minutes = ui->minutesSpinBox->value();
     int seconds = ui->secondsSpinBox->value();
     int duration = (minutes * 60 + seconds) * 1000;
-    durationWithExercise.insert(durationWithExercise.size(), {duration, exerciseName});
+    durationWithExercise.insert(durationWithExercise.size()+1, {duration, exerciseName});
 
     QString timerText = QString::number(minutes).rightJustified(2, '0')
                         + ":" + QString::number(seconds).rightJustified(2, '0');
@@ -164,6 +174,7 @@ void SportTimer::addTimerConnect()
                                  + ": " + timerText);
 
     timers.append(new QBasicTimer());
+    updateAllTimerText();
 }
 
 void SportTimer::startTimers()
@@ -178,6 +189,22 @@ void SportTimer::startTimers()
     }
 }
 
+void SportTimer::updateAllTimerText()
+{
+    for (int i = 0; i < ui->timerListWidget->count(); ++i) {
+        int remainingTime = durationWithExercise.values().at(i).first;
+        int minutes = remainingTime / 60000;
+        int seconds = (remainingTime % 60000) / 1000;
+        QString timerText = QString::number(minutes).rightJustified(2, '0')
+                            + ":" + QString::number(seconds).rightJustified(2, '0');
+
+        QListWidgetItem *item = ui->timerListWidget->item(i);
+        item->setText(QString::number(i + 1) +
+                      ". " + durationWithExercise.values().at(i).second + " "
+                      + ": " + timerText);
+    }
+}
+
 /**
  * @brief Updates the text of the timer list item with the remaining duration.
  *
@@ -185,7 +212,6 @@ void SportTimer::startTimers()
  */
 void SportTimer::updateTimerText()
 {
-    animate();
     int remainingTime = durationWithExercise.first().first;
     int minutes = remainingTime / 60000;
     int seconds = (remainingTime % 60000) / 1000;
@@ -193,10 +219,11 @@ void SportTimer::updateTimerText()
                         + ":" + QString::number(seconds).rightJustified(2, '0');
 
     QListWidgetItem *item = ui->timerListWidget->item(0);
-    item->setText(QString::number(durationWithExercise.keys().first()+1) +
+    item->setText(QString::number(durationWithExercise.firstKey()) +
                   ". " + durationWithExercise.first().second + " "
                   + ": " + timerText);
-    if (remainingTime <= 5000) {
+    if (remainingTime <= 5000 && timers.first()->isActive()) {
+        animate();
         if (remainingTime % 1000 == 0) {
             if (item->foreground() == Qt::red)
                 item->setForeground(Qt::black);
@@ -222,7 +249,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
     if( timers.size()>0){
         if (event->timerId() == timers[timerIndex]->timerId()) {
             // Check if timerIndex is valid
-            if (timerIndex >= 0 && 0 < timers.size()) {
+            if (timerIndex >= 0 && !durationWithExercise.empty()) {
                 int currentDuration = durationWithExercise.first().first;
 
                 currentDuration -= 1000;
@@ -235,7 +262,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
                     delete ui->timerListWidget->takeItem(timerIndex);
 
                     durationWithExercise.remove(durationWithExercise.keys().first());
-
+                    updateDurationWitExercise();
                     // Start the next timer if available
                     if (timerIndex < timers.size()) {
                         timers[timerIndex]->start(1000, this);
@@ -243,6 +270,7 @@ void SportTimer::timerEvent(QTimerEvent *event)
                 } else {
                     durationWithExercise.first().first = currentDuration;
                     updateTimerText();
+                    updateAllTimerText();
                 }
             } else {
                 qDebug() << "Invalid timerIndex:" << timerIndex;

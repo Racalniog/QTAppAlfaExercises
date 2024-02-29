@@ -106,7 +106,7 @@ void SportTimer::loadPresetTimersByName(QString trainingName)
         count += 1;
         int duration = query.value(1).toInt();
         QString exerciseName = query.value(2).toString();
-        durationWithExercise.insert(count, qMakePair(duration, exerciseName));
+        durationWithExercise.insert(durationWithExercise.size()+count, qMakePair(duration, exerciseName));
 
         int minutes = duration / 60000;
         int seconds = (duration % 60000) / 1000;
@@ -116,6 +116,8 @@ void SportTimer::loadPresetTimersByName(QString trainingName)
         ui->timerListWidget->addItem(QString::number(count) + ". " + exerciseName + ": " + timerText);
         timers.append(new QBasicTimer());
     }
+    updateDurationWitExercise();
+    updateAllTimerText();
 }
 
 /**

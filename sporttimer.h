@@ -64,6 +64,8 @@ private:
     void setup();
     void loadPresetTimersByName(QString trainingName);
     void animate();
+    void updateAllTimerText();
+    void updateDurationWitExercise();
 };
 
 #endif // SPORTTIMER_H
