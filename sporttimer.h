@@ -12,6 +12,8 @@
 #include <QOverload>
 #include <QtMultimedia>
 
+class SportTimerUnitTests;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class SportTimer; }
 QT_END_NAMESPACE
@@ -65,6 +67,8 @@ private:
     void animate();
     void updateAllTimerText();
     void updateDurationWitExercise();
+
+    friend class SportTimerUnitTests;
 };
 
 #endif // SPORTTIMER_H

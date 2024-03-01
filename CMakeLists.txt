@@ -6,14 +6,14 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets
-    Network Xml Sql)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Xml Sql Multimedia)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Network Xml Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Test Widgets Network Xml Sql Multimedia)
 
 qt_standard_project_setup()
 
 qt_add_resources(RESOURCE_FILES resources.qrc)
 
+# Main Application
 qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     main.cpp
     mainwindow.cpp mainwindow.h mainwindow.ui
@@ -25,11 +25,30 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
     paintwidget.h paintwidget.cpp paintwidget.ui
     ${RESOURCE_FILES}
     sporttimerdatabase.cpp
+    Notes.md
 )
+
+# Test Executable
+qt_add_executable(sporttimertest WIN32 MACOSX_BUNDLE
+    sporttimerunittests.cpp
+    sporttimer.cpp
+    sporttimerdatabase.cpp
+    sporttimer.h
+)
+add_test(NAME sporttimertest COMMAND sporttimertest)
 
 target_link_libraries(QTAlfaExercises PRIVATE
     Qt::Core
     Qt::Gui
+    Qt::Widgets
+    Qt::Network
+    Qt::Xml
+    Qt::Sql
+    Qt::Multimedia
+)
+
+target_link_libraries(sporttimertest PRIVATE
+    Qt::Test
     Qt::Widgets
     Qt::Network
     Qt::Xml
@@ -48,6 +67,3 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
-
-# cmake --install . in the build folder installs the app into
-# C:\Program Files (x86)\QTAlfaExercises\bin
