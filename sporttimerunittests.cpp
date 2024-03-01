@@ -16,29 +16,43 @@ private slots:
     {
         SportTimer sportTimer;
 
-        int initialTimerCount = sportTimer.durationWithExercise.size();
+        // Initially, there should be no timers
+        QCOMPARE(sportTimer.timers.size(), 0);
 
-        QString exerciseName = "Test Exercise";
-        int minutes = 5;
-        int seconds = 0;
-        int duration = (minutes * 60 + seconds) * 1000;
-        sportTimer.durationWithExercise.insert(duration, {duration, exerciseName});
+        sportTimer.addTimerConnect();
 
-        int timerCountAfterAdd = sportTimer.durationWithExercise.size();
-        qDebug() << "initialTimerCount:"<< initialTimerCount << "\ntimerCountAfterAdd:" << timerCountAfterAdd;
-        QCOMPARE(timerCountAfterAdd, initialTimerCount + 1);
+        QCOMPARE(sportTimer.timers.size(), 1);
+
+        // Check if the timer is correctly added and initialized
+        QVERIFY(!sportTimer.timers.first()->isActive());
+
+        sportTimer.addTimerConnect();
+
+        QCOMPARE(sportTimer.timers.size(), 2);
+
+        // Check if the second timer is correctly added and initialized
+        QVERIFY(!sportTimer.timers.last()->isActive());
     }
+
     void testStartTimers()
     {
         SportTimer sportTimer;
 
-        //QVERIFY(sportTimer.areTimersRunning);
-    }
+        sportTimer.addTimerConnect();
+        sportTimer.addTimerConnect();
+        sportTimer.addTimerConnect();
 
+        sportTimer.startTimers();
+
+        QVERIFY(sportTimer.timers.first()->isActive());
+
+        for (int i = 1; i < sportTimer.timers.size(); ++i) {
+            QVERIFY(!sportTimer.timers[i]->isActive());
+        }
+    }
 };
 
 QTEST_MAIN(SportTimerUnitTests)
 #include "sporttimerunittests.moc"
 
-//testname [options] [testfunctions[:testdata]]...
-//sporttimertest.exe testAddTimer
+// choose the SportTimerUnitTests class in the Qt Creator to run

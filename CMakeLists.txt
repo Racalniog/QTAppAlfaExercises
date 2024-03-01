@@ -30,6 +30,7 @@ qt_add_executable(QTAlfaExercises WIN32 MACOSX_BUNDLE
 
 # Test Executable
 qt_add_executable(sporttimertest WIN32 MACOSX_BUNDLE
+    ${RESOURCE_FILES}
     sporttimerunittests.cpp
     sporttimer.cpp
     sporttimerdatabase.cpp

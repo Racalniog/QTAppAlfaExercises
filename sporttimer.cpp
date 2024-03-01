@@ -308,7 +308,9 @@ void SportTimer::wheelEvent(QWheelEvent *event)
 
 SportTimer::~SportTimer()
 {
-    QSqlDatabase db = QSqlDatabase::database();
-    db.close();
+    if (QSqlDatabase::contains("sportTimerConnection")) {
+        QSqlDatabase db = QSqlDatabase::database("sportTimerConnection");
+        db.close();
+    }
     delete ui;
 }
