@@ -225,14 +225,17 @@ void SportTimer::updateTimerText()
                   ". " + durationWithExercise.first().second + " "
                   + ": " + timerText);
     animate();
-    if (remainingTime <= 5000 && timers.first()->isActive()) {
-        if (remainingTime % 1000 == 0) {
-            if (item->foreground() == Qt::red)
-                item->setForeground(Qt::black);
+    if (remainingTime <= 10000 && timers.first()->isActive()) {
+        if (remainingTime <= 5000) {
+            if (item->foreground() != Qt::red)
+                item->setForeground(Qt::red);
             else{
                 soundEffect.play();
-                item->setForeground(Qt::red);
+                item->setForeground(Qt::black);
             }
+        }else if(remainingTime == 10000){
+            soundEffect.play();
+            item->setForeground(Qt::red);
         }
     } else {
         item->setForeground(Qt::black);
