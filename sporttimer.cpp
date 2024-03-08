@@ -271,6 +271,8 @@ void SportTimer::timerEvent(QTimerEvent *event)
                     // Start the next timer if available
                     if (timerIndex < timers.size()) {
                         timers[timerIndex]->start(1000, this);
+                        updateTimerText();
+                        updateAllTimerText();
                     }
                 } else {
                     durationWithExercise.first().first = currentDuration;
